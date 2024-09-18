@@ -1,0 +1,92 @@
+.carousel-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  width: 100%;
+}
+
+.carousel-wrapper {
+  overflow: visible; /* 부모 요소에서 overflow가 잘리거나 이상하게 보이는 것을 방지 */
+  width: 80%;
+}
+
+.carousel {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+}
+
+.carousel-item {
+  display: flex;
+  width: 100%;
+}
+
+.col-4 {
+  flex: 1;
+  box-sizing: border-box;
+  padding: 20px;
+  position: relative;
+  z-index: 1; /* 기본 z-index를 낮게 설정 */
+  transition: transform 0.3s ease, z-index 0.3s ease; /* box-shadow 제거 */
+}
+
+.col-4.center-box {
+  transform: scale(1.15); /* 크기 강조를 유지하되 그림자는 제거 */
+  transform-origin: center;
+  z-index: 10; /* 중앙 박스를 가장 앞으로 배치 */
+}
+
+.carousel-button {
+  background-color: transparent;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: black;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 3; /* 버튼이 모든 박스 위에 위치하도록 설정 */
+}
+
+#prevBtn {
+  left: -50px;
+}
+
+#nextBtn {
+  right: -40px;
+}
+
+/* 캐러셀 인디케이터 */
+.carousel-indicators {
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.indicator {
+  width: 10px;
+  height: 10px;
+  background-color: #ccc;
+  border-radius: 50%;
+  margin: 0 5px;
+}
+
+.indicator.active {
+  background-color: #333;
+}
+
+/* Get Started 버튼 위치 조정 */
+.carousel-footer {
+  margin-top: 100px;
+  text-align: center;
+}
+
+.carousel-item .col-4 {
+  display: none; /* 기본적으로 모든 박스를 숨김 */
+  transition: transform 0.3s ease, z-index 0.3s ease;
+}
+
+.col-4.center-box {
+  transform: scale(1.15); /* 크기를 확대 */
+  z-index: 10; /* 중앙 박스를 가장 앞으로 배치 */
+}

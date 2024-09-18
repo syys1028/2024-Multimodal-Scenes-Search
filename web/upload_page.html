@@ -1,0 +1,395 @@
+<!DOCTYPE HTML>
+
+<html lang="kr">
+	<head>
+		<title>ScenX</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<!-- <link rel="stylesheet" href="assets/css/test.css" /> -->
+	</head>
+	<body class="left-sidebar is-preload">
+		<div id="page-wrapper">
+			<!-- header -->
+			<nav id="nav">
+				<h1><a href="main_page.html">ScenX</a></h1>
+				<ul>
+					<li><a href="main_page.html">Home</a></li>
+					<li class="current"><a href="upload_page.html">Upload Movies</a></li>
+					<li class="dropdown">
+						<a href="javascript:void(0)" class="dropbtn">Scene Search</a>
+						<div class="dropdown-content">
+							<a href="search_file_page.html">Scene Search</a>
+							<a href="recommend_tag_page.html">Tag Recommend</a>
+						</div>
+					</li>
+					<li><a href="translate_page.html">Translation</a></li>
+				</ul>
+			</nav>
+
+			<!-- Main -->
+			<section id="main">
+				<div class="container">
+					<div class="row">
+						<!-- Sidebar -->
+						<div class="col-4 col-12-medium">
+							<!-- 업로드 페이지 소개 -->
+							<section class="box">
+								<a href="#" class="image featured"><img src="images/pic09.jpg" alt="" /></a>
+								<header>
+									<h3>기술 소개</h3>
+								</header>
+								<p>업로드된 비디오는 서버에 저장된다. 저장된 비디오는 처리를 통해 자막과 음성 데이터를 추출하고, 데이터는 다양한 방식으로 활용될 수 있다.</p>
+							</section>
+							<!-- 업로드된 영화 목록 -->
+							<section class="box">
+								<header>
+									<h3>현재 업로드된 영상 목록</h3>
+								</header>
+								<p>현재 업로드된 영상 목록입니다. 업로드하려는 비디오 제목이 목록에 포함되지 않았는지 확인하고 업로드하세요.</p>
+								<form>
+									<select style="margin: 5px;" name="Q155" id="Q525_1">
+										<option value="" selected disabled>Select a movie</option>
+									</select>
+								</form>	
+							</section>	
+							<script>
+							// 영화 제목 목록을 가져와서 셀렉트 박스를 채우는 함수
+							function get_lists() {
+								var selectBox = document.getElementById('Q525_1'); // 영화 제목을 표시할 셀렉트 박스 가져오기
+								var xhr = new XMLHttpRequest(); // XMLHttpRequest 객체 생성
+								
+								xhr.onreadystatechange = function() {
+									if (this.readyState === XMLHttpRequest.DONE) { // 요청이 완료되면
+										if (this.status === 200) { // HTTP 상태 코드가 200이면
+											try {
+												var movieFiles = JSON.parse(this.responseText); // JSON 형식의 응답을 파싱하여 영화 파일 목록 가져오기
+												console.log('Parsed movie files:', movieFiles); // 디버깅용 로그 출력
+												
+												// 각 파일 경로에서 파일 이름 추출 및 확장자 제거 후 옵션으로 추가
+												movieFiles.forEach(function(filePath) {
+													var fileName = filePath.split('/').pop().split('\\').pop(); // 파일 경로에서 파일 이름 추출
+													var fileTitle = fileName.replace(/\.[^/.]+$/, ""); // 파일 이름에서 확장자 제거
+													
+													var option = document.createElement('option'); // 새 옵션 요소 생성
+													option.value = fileTitle; // 옵션 값 설정
+													option.text = fileTitle; // 옵션 텍스트 설정
+													selectBox.appendChild(option); // 셀렉트 박스에 옵션 추가
+												});
+											} catch (e) {
+												console.error('Failed to parse JSON response:', e); // JSON 응답 파싱 실패 시 에러 로그 출력
+											}
+										} else {
+											console.error('Failed to fetch movie titles:', this.status, this.statusText); // 영화 제목 가져오기 실패 시 에러 로그 출력
+										}
+									}
+								};
+								xhr.open('GET', 'http://202.31.147.126:8080/get_file_list.php', true); // GET 요청 설정
+								xhr.send(); // 요청 전송
+							}
+							get_lists();
+						</script>							
+						</div>
+
+						<!-- 업로드 -->
+						<div class="col-8 col-12-medium imp-medium">
+							<article class="box post">
+								<a href="#" class="image featured"><img src="assets/css/images/upload_image.png" alt="" /></a>
+								<header>
+									<h2>영화 업로드</h2>
+									<!-- <p>Upload a video in mp4 format.</p> -->
+								</header>
+								<p>
+									검색 및 번역에 사용하고 싶은 비디오를 업로드하세요. 비디오의 모든 자막과 음성은 학습에 사용됩니다.
+								</p>
+
+								<!-- 영화 업로드 -->
+								<section>
+									<header>
+										<h3>사용 방법</h3>
+									</header>
+									<p>
+										<span class="emphasis-red">업로드 전에 왼쪽 사이드바에서 영화를 검색하여 존재여부를 확인하세요.</span><br><br>
+										업로드하려면 아래의 '파일 선택' 버튼을 클릭하여 업로드하려는 비디오를 선택하세요. 영화를 선택하면 제목이 표시됩니다.									
+									</p>
+									<p>									
+										업로드 버튼을 클릭하기 전에 영화의 연도와 제목을 적어주세요. 정확한 정보는 더 나은 검색 서비스를 제공합니다.
+									</p>
+									<!-- 연도, 제목, 영화 파일 업로드 -->
+									<p>
+										<form id="uploadForm" enctype="multipart/form-data">
+											<div class="form-row-inputdata">
+												<input style="width: 100px; margin-right: 20px; text-align: center;" type="text" id="yearInput" name="year" placeholder="Year">
+												<input style="text-align: center;" type="text" id="titleInput" name="title" placeholder="Title">
+											</div>
+											<div class="form-row">
+												<input type="file" id="fileInput" name="videoFile" accept="video/*">
+												<button id="uploadButton" type="button">Upload</button>
+											</div>
+										</form>
+										
+										<script>
+											// 업로드 버튼 클릭 시 이벤트 리스너
+											document.getElementById('uploadButton').addEventListener('click', async () => {
+												const fileInput = document.getElementById('fileInput');
+												const yearInput = document.getElementById('yearInput');
+												const titleInput = document.getElementById('titleInput');
+												
+												// 입력된 파일이 없는 경우 알림
+												if (!fileInput.files.length) {
+													alert('Please select a file to upload.');
+													return;
+												}
+												
+												const formData = new FormData();
+												formData.append('videoFile', fileInput.files[0]);
+												formData.append('year', yearInput.value);
+												formData.append('title', titleInput.value);
+												
+												try {
+													const response = await fetch('http://202.31.147.126:3000/upload', {
+														method: 'POST',
+														body: formData
+													});
+													if (response.ok) { // 업로드 성공 시 알림
+														const data = await response.text();
+														alert(data);
+													} else if (response.status === 409) { // 파일 중복 에러 처리
+														const errorMessage = await response.text();
+														alert(errorMessage);
+													} else { // 기타 에러 처리
+														throw new Error('Failed to upload file: ' + response.statusText);
+													}
+												} catch (error) {
+													console.error('Error:', error.message);
+													alert('Error: Failed to upload file');
+												}
+											});
+											document.getElementById('Q525_1').addEventListener('change', async function() {
+												const selectedMovie = this.value;
+
+												if (!selectedMovie) {
+													return;
+												}
+
+												try {
+													// Send a POST request to fetch movie details from the server
+													const response = await fetch('http://localhost:3000/get-movie-details', {
+														method: 'POST',
+														headers: {
+															'Content-Type': 'application/json',
+														},
+														body: JSON.stringify({ movieName: selectedMovie }),
+													});
+
+													const movieInfo = await response.json();
+
+													if (response.ok) {
+														// Open the new page and pass the movie data
+														openMoviePage(movieInfo);
+													} else {
+														alert('Error: ' + movieInfo.error);
+													}
+												} catch (error) {
+													console.error('Error fetching movie info:', error);
+													alert('Failed to fetch movie information.');
+												}
+											});
+
+											function openMoviePage(movieInfo) {
+												// Open a new window and pass movie info via localStorage
+												const movieWindow = window.open('info_page.html', '_blank', 'width=1000,height=830,top=50,left=50,scrollbars=yes');
+												
+												// Use localStorage to pass data
+												localStorage.setItem('movieInfo', JSON.stringify(movieInfo));
+											}
+
+
+										</script>												
+									</p>
+								</section>
+
+								<hr style="border: 1px solid #ddd; margin: 2em 0;">
+
+								<!-- 추가 파일 업로드 -->
+								<section>
+									<header>
+										<h3>추가 업로드</h3>
+									</header>
+									<p>
+										<span class="emphasis-red">영화에서 이미지, 자막 텍스트, 음성 파일만 업로드하고 싶다면 여기를 클릭하세요.<br>
+											예시: 'image.png', 'filming.txt', 'voice.mp3'</span><br>							
+									</p>
+									<p>									
+										업로드 버튼을 클릭하기 전에 업로드하려는 파일 유형을 선택하고 영화의 연도와 제목을 입력하세요. 정보가 정확할수록 검색량이 많아집니다.
+									</p>
+									<!-- 연도, 제목, 추가 파일 업로드 -->
+									<form id="additionalUploadForm" enctype="multipart/form-data">
+										<div class="form-row">
+											<!-- 추가 파일 종류 선택 -->
+											<select id="fileTypeSelect" name="fileType" required>
+												<option value="image">Image</option>
+												<option value="text">Text</option>
+												<option value="voice">Voice</option>
+											</select>
+											<br>	
+											<div class="form-row-inputdata">
+												<input style="width: 100px; margin-right: 20px; text-align: center;" type="text" id="additionalYearInput" name="year" placeholder="Year" required>
+												<input style="text-align: center;" type="text" id="additionalTitleInput" name="title" placeholder="Title" required>
+											</div>
+											<input type="file" id="additionalFileInput" name="additionalFile" accept="image/*, .txt, audio/*" required>
+											<button id="additionalUploadButton" type="button">Upload</button>
+										</div>
+									</form>
+								</section>
+								<!-- 주의사항 설명 -->
+								<hr style="border: 1px solid #ddd; margin: 2em 0;">
+								<header>
+									<h3>지  침</h3>
+								</header>
+								<p>
+									저작권 및 개인정보가 포함된 민감한 영상은 업로드하지 마십시오. 업로드한 영상은 다른 사용자가 검색에 사용할 수 있습니다. 영상의 내용과 정보는 프로그램을 통해 얻은 정보일 뿐, 검색 및 번역을 제외하고는 사용되지 않습니다.
+									원저자의 허가 없이는 2차 데이터 처리가 허용되지 않습니다.
+
+								</p>
+								<script>
+									// 추가 업로드 버튼 클릭 시 이벤트 리스너
+									document.addEventListener('DOMContentLoaded', () => { 
+										document.getElementById('additionalUploadButton').addEventListener('click', async () => {
+											const additionalFileInput = document.getElementById('additionalFileInput');
+											const additionalYearInput = document.getElementById('additionalYearInput');
+											const additionalTitleInput = document.getElementById('additionalTitleInput');
+											const fileTypeSelect = document.getElementById('fileTypeSelect');
+											
+											// 입력된 파일이 없는 경우 알림
+											if (!additionalFileInput.files.length) {
+												alert('Please select a file to upload');
+												return;
+											}
+								
+											const formData = new FormData();												
+											formData.append('year', additionalYearInput.value);
+											formData.append('title', additionalTitleInput.value);
+											formData.append('fileType', fileTypeSelect.value);
+											formData.append('additionalFile', additionalFileInput.files[0]);
+								
+											// console.log('Form Data:', {
+											// 	additionalFile: additionalFileInput.files[0],
+											// 	year: additionalYearInput.value,
+											// 	title: additionalTitleInput.value,
+											// 	fileType: fileTypeSelect.value
+											// });
+											//alert(additionalFileInput.files[0] + ' ' +additionalYearInput.value + ' ' + additionalTitleInput.value + ' ' + fileTypeSelect.value);
+								
+											try {
+												const response = await fetch('http://202.31.147.126:3000/uploadAdditional', {
+													method: 'POST',
+													body: formData
+												});
+							
+												if (response.ok) { // 업로드 성공 시 알림
+													const data = await response.text();
+													alert(data);
+												} else { // 기타 에러 처리
+													const errorMessage = await response.text();
+													//alert('Error: ' + errorMessage);
+												}
+											} catch (error) {
+												console.error('Error:', error.message);
+												alert('Error: Failed to upload file');
+											}
+										});
+									});
+								</script>
+							</article>
+						</div>
+					</div>
+				</div>
+			</section>
+
+			<!-- footer -->
+			<section id="footer">
+				<div class="container">
+					<div class="row">
+						<!-- 사용된 라이브러리 및 API 섹션 -->
+						<div class="col-4 col-6-medium col-12-small">
+							<section>
+								<header>
+									<h2>Used Library & API</h2>
+								</header>
+								<ul class="divided">
+									<li>Python EasyOCR Library</li>
+									<li>Python OpenCV Library</li>
+									<li>Python OpenAI Whisper</li>
+									<li>Google Cloud Speech-to-Text API</li>
+									<li>Google Translate API</li>									
+								</ul>
+							</section>
+						</div>
+						<!-- 연계된 대학 섹션 -->
+						<div class="col-4 col-6-medium col-12-small">
+							<section>
+								<header>
+									<h2>Affiliated University</h2>
+								</header>
+								<ul class="divided">
+									<li><a href="https://www.kunsan.ac.kr/cie/index.kunsan">Department of Computer and Information Engineering, Kunsan national University </a></li>										
+								</ul>
+							</section>
+						</div>
+						<!-- 제안 섹션 -->
+						<div class="col-4 col-12-medium">
+							<section>
+								<header>
+									<h2>Suggestions</h2>
+								</header>
+								<ul class="social">
+									<li><a class="icon brands fa-facebook-f" href="#"><span class="label">Facebook</span></a></li>
+									<li><a class="icon brands fa-twitter" href="#"><span class="label">Twitter</span></a></li>
+									<li><a class="icon brands fa-dribbble" href="#"><span class="label">Dribbble</span></a></li>
+									<li><a class="icon brands fa-tumblr" href="#"><span class="label">Tumblr</span></a></li>
+									<li><a class="icon brands fa-linkedin-in" href="#"><span class="label">LinkedIn</span></a></li>
+								</ul>
+								<ul class="contact">
+									<li>
+										<h3>Address</h3>
+										<p>
+											Untitled Incorporated<br />
+											1234 Somewhere Road Suite<br />
+											Gunsan, TN 00000
+										</p>
+									</li>
+									<li>
+										<h3>Mail</h3>
+										<p><a href="#">syys10280@naver.com</a></p>
+									</li>
+									<li>
+										<h3>Phone</h3>
+										<p> (+82) 10-0000-0000</p>
+									</li>
+								</ul>
+							</section>
+						</div>
+						<div class="col-12">
+							<!-- Copyright -->
+							<div id="copyright">
+								<ul class="links">
+									<li>&copy; Modal-Lens. All rights reserved.</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</section>
+		</div>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.dropotron.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>

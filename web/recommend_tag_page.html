@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <title>ScenX</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="right-sidebar is-preload">
+    <div id="page-wrapper">
+      <!-- Header -->
+      <nav id="nav">
+        <h1><a href="main_page.html">ScenX</a></h1>
+        <ul>
+          <li><a href="main_page.html">Home</a></li>
+          <li><a href="upload_page.html">Upload Movies</a></li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Scene Search</a>
+            <div class="dropdown-content">
+              <a href="search_file_page.html">Scene Search</a>
+              <a href="recommend_tag_page.html">Tag Recommend</a>
+            </div>
+          </li>
+          <li><a href="translate_page.html">Translation</a></li>
+        </ul>
+      </nav>
+
+      <!-- Main -->
+      <section id="main">
+        <div class="container">
+          <div class="row">
+            <div class="col-8 col-12-medium">
+              <div class="search-tag">
+                <!-- intro -->
+                <article class="box post">
+                  <a href="#" class="image featured"
+                    ><img src="assets/css/images/recommend.png" alt=""
+                  /></a>
+                  <header>
+                    <h2>영화 추천</h2>
+                    <p>태그로 원하는 장면을 검색해보세요.</p>
+                  </header>
+                  <p>
+                    오른쪽에 검색 태그를 입력하여 취향에 맞는 영화를 찾아보세요.
+                    원하는 장면이 포함된 영화를 찾으려면 키워드나 범위, 제목,
+                    인물, 장면 등의 태그와 각 장면의 타임라인을 입력하세요.
+                    타임라인을 클릭하면 해당 시간대로 바로 재생할 수 있습니다.
+                  </p>
+
+                  <p>
+                    영화의 내용을 요약한 텍스트를 보고 싶다면 아래 버튼을 클릭한
+                    후 요약하고 싶은 영화를 클릭하세요. 현재 보유한 영화만
+                    표시됩니다.
+                  </p>
+                  <button id="movieSummaryBtn">요약 버튼</button>
+                </article>
+                <!-- summary -->
+                <article
+                  class="box post"
+                  id="movieSummarySection"
+                  style="display: none"
+                >
+                  <header>
+                    <h2>영화 요약</h2>
+                  </header>
+                  <p>
+                    영화를 검색하기 전에, 현재 보유하고 있는 영화의 간단한
+                    요약을 확인할 수 있습니다. 영화를 클릭하면 자동으로 영화의
+                    요약이 표시됩니다. 영화의 내용은 자막을 기반으로 자동
+                    요약되며, 현재 영어와 한국어로 지원됩니다. 앞으로 더 많은
+                    언어가 추가될 예정입니다.
+                  </p>
+                  <h3>영화 선택:</h3>
+                  <form>
+                    <select
+                      style="margin-top: 10px; font-size: 0.9em"
+                      name="selectMovieSummary"
+                      id="selectMovieSummary"
+                    >
+                      <option value="" selected disabled>Select a movie</option>
+                    </select>
+                    <h3 style="margin-top: 5px">언어 선택:</h3>
+                    <select
+                      style="margin-top: 10px; font-size: 0.9em"
+                      name="selectLanSummary"
+                      id="selectLanSummary"
+                    >
+                      <option value="eng">English</option>
+                      <option value="kor">Korean Language</option>
+                    </select>
+                  </form>
+                  <p style="margin-top: 5px; padding: 10px" id="movieSummary">
+                    여기서 요약을 보려는 영화를 선택하세요.
+                  </p>
+                </article>
+                <!-- search -->
+                <article class="box post">
+                  <header>
+                    <h2>검 색</h2>
+                  </header>
+                  <p id="searchInstruction">
+                    영화를 검색하려면 오른쪽에 검색 태그를 입력한 후 적용을
+                    클릭하세요. <br />
+                    검색된 영화는 재생 버튼을 눌러 확인할 수 있으며,
+                    타임스탬프를 클릭하면 해당 장면으로 바로 이동할 수 있습니다.
+                  </p>
+                  <!-- Video player, hidden by default -->
+                  <div id="playerContainer" style="display: none">
+                    <video id="moviePlayer" class="movie-player" controls>
+                      <source src="" type="video/mp4" id="movieSource" />
+                      Your browser does not support the video tag.
+                    </video>
+                  </div>
+
+                  <!-- Search results -->
+                  <div id="results"></div>
+                </article>
+              </div>
+            </div>
+            <script>
+              // Function to set the video source based on the movie title
+              function setVideoSource(movieTitle, timestamp = 0) {
+                const videoPlayer = document.getElementById('moviePlayer');
+                const movieSource = document.getElementById('movieSource');
+                const playerContainer =
+                  document.getElementById('playerContainer');
+
+                if (videoPlayer && movieSource && playerContainer) {
+                  const moviePath = `C:/Users/UBIT/movie/${movieTitle}.mp4`; // Adjust this path as necessary
+                  movieSource.src = moviePath;
+                  videoPlayer.load(); // Reload the video player with the new source
+
+                  if (timestamp) {
+                    videoPlayer.currentTime = timestamp;
+                  }
+
+                  // Show the player
+                  playerContainer.style.display = 'block';
+                }
+              }
+
+              // Convert a timestamp string (e.g., "00:02:00") to seconds
+              function convertTimestampToSeconds(timestamp) {
+                const parts = timestamp.split(':');
+                return +parts[0] * 60 * 60 + +parts[1] * 60 + +parts[2];
+              }
+
+              // Update the jumpToTime function to prevent the default action
+              function jumpToTime(timeInSeconds, movieTitle, event) {
+                event.preventDefault(); // Prevent the default link behavior
+                setVideoSource(movieTitle, timeInSeconds);
+              }
+
+              function addMovieTitleClickListener(movieTitle) {
+                const titleElements = document.querySelectorAll(
+                  `.movie-title[data-title="${movieTitle}"]`
+                );
+
+                titleElements.forEach((titleElement) => {
+                  titleElement.addEventListener('click', (event) => {
+                    setVideoSource(movieTitle);
+                  });
+                });
+              }
+
+              // fetchMovieInfo
+              async function fetchMovieInfo(
+                searchWords,
+                searchScope,
+                selectedMovie,
+                searchActor,
+                searchPlace
+              ) {
+                try {
+                  let url = 'http://localhost:3000/search';
+                  const searchParams = new URLSearchParams();
+
+                  if (searchWords.length > 0) {
+                    searchWords.forEach((word) =>
+                      searchParams.append('searchWords', word)
+                    );
+                  }
+                  if (searchScope.length > 0) {
+                    searchScope.forEach((scope) =>
+                      searchParams.append('searchScope', scope)
+                    );
+                  }
+                  if (selectedMovie) {
+                    searchParams.append('selectedMovie', selectedMovie);
+                  }
+                  if (searchActor.length > 0) {
+                    searchActor.forEach((actor) =>
+                      searchParams.append('searchActor', actor)
+                    );
+                  }
+                  if (searchPlace.length > 0) {
+                    searchPlace.forEach((place) =>
+                      searchParams.append('searchPlace', place)
+                    );
+                  }
+
+                  url += '?' + searchParams.toString();
+
+                  const response = await fetch(url);
+                  const movies = await response.json();
+
+                  if (Array.isArray(movies)) {
+                    const movieInfoContainer =
+                      document.getElementById('results');
+                    const searchInstructions =
+                      document.getElementById('searchInstructions');
+                    movieInfoContainer.innerHTML = '';
+
+                    // Group movies by their title
+                    const movieGroups = {};
+
+                    movies.forEach((movie) => {
+                      if (!movieGroups[movie.movieName]) {
+                        movieGroups[movie.movieName] = [];
+                      }
+                      movieGroups[movie.movieName].push(movie);
+                    });
+
+                    // Hide the search instructions if movies are found
+                    if (movies.length > 0 && searchInstructions) {
+                      searchInstructions.style.display = 'none';
+                    }
+
+                    // Process and display each movie group
+                    Object.keys(movieGroups).forEach((movieName, index) => {
+                      const movieGroupDiv = document.createElement('div');
+                      movieGroupDiv.classList.add('movie-group');
+                      movieGroupDiv.style.border = '1px solid #ccc';
+                      movieGroupDiv.style.padding = '10px';
+                      movieGroupDiv.style.marginBottom = '20px';
+                      movieGroupDiv.style.maxHeight = '200px';
+                      movieGroupDiv.style.overflowY = 'auto';
+                      movieInfoContainer.appendChild(movieGroupDiv);
+
+                      // Add movie title with larger font size
+                      let movieTitleElement = `<h3 class="movie-title" data-title="${movieName}" style="cursor: pointer;">${movieName}</h3>`;
+                      movieGroupDiv.innerHTML += movieTitleElement;
+
+                      movieGroups[movieName].forEach((movie) => {
+                        const movienameinput = movie.movieName;
+                        console.log(movienameinput);
+                        let content = `<strong>${
+                          movie.movieName
+                        }</strong> - <a href="#" onclick="jumpToTime(${convertTimestampToSeconds(
+                          movie.timeStamp
+                        )}, '${movie.movieName.replace(
+                          /'/g,
+                          "\\'"
+                        )}', event)">${movie.timeStamp}</a><br>`;
+
+                        if (movie.subText) {
+                          content += `<strong>Subtitle:</strong> ${movie.subText}<br>`;
+                        }
+                        if (movie.voiceText) {
+                          content += `<strong>Voice:</strong> ${movie.voiceText}<br>`;
+                        }
+                        if (movie.placeText) {
+                          content += `<strong>Place:</strong> ${movie.placeText}<br>`;
+                        }
+                        if (movie.actorGender) {
+                          content += `<strong>Gender:</strong> ${movie.actorGender}<br>`;
+                        }
+                        if (movie.isMainActor) {
+                          content += `<strong>Main Actor:</strong> ${movie.isMainActor}<br>`;
+                        }
+                        if (movie.actorName) {
+                          content += `<strong>Actor Name:</strong> ${movie.actorName}<br>`;
+                        }
+                        content += `</p>`;
+                        movieGroupDiv.innerHTML += content;
+                      });
+
+                      // Automatically load and show the first movie in the player
+                      if (index === 0) {
+                        setVideoSource(movieName); // Set the first movie as the default
+                      }
+
+                      // Add click listener for the movie title
+                      movieGroupDiv
+                        .querySelector('.movie-title')
+                        .addEventListener('click', function () {
+                          setVideoSource(movieName); // Set the player to the selected movie
+                        });
+                    });
+                  } else {
+                    console.error(
+                      'Error fetching movie information:',
+                      movies.error
+                    );
+                  }
+                } catch (error) {
+                  console.error('Error fetching movie information:', error);
+                }
+              }
+              // DOMContentLoaded 
+              document.addEventListener('DOMContentLoaded', () => {
+                const movieSummaryBtn =
+                  document.getElementById('movieSummaryBtn');
+                const movieSummarySection = document.getElementById(
+                  'movieSummarySection'
+                );
+                const selectMovieSummary =
+                  document.getElementById('selectMovieSummary');
+                const selectLanSummary =
+                  document.getElementById('selectLanSummary');
+                const summaryElement = document.getElementById('movieSummary');
+                const searchForm = document.getElementById('searchForm');
+
+                movieSummaryBtn.addEventListener('click', () => {
+                  if (
+                    movieSummarySection.style.display === 'none' ||
+                    movieSummarySection.style.display === ''
+                  ) {
+                    movieSummarySection.style.display = 'block';
+                  } else {
+                    movieSummarySection.style.display = 'none';
+                  }
+                });
+
+                async function fetchMovieSummary() {
+                  const selectedMovie = selectMovieSummary.value;
+                  const selectedLanguage = selectLanSummary.value;
+                  let movieTitle = selectedMovie;
+
+                  // Remove text within parentheses and the parentheses themselves
+                  if (movieTitle.startsWith('(') && movieTitle.includes(')')) {
+                    movieTitle = movieTitle.replace(/\(.*?\)\s*/, '');
+                  }
+
+                  // Reset summary text
+                  summaryElement.innerText =
+                    'Select a movie to see its summary here.';
+
+                  if (!selectedMovie || !selectedLanguage) {
+                    return;
+                  }
+
+                  try {
+                    const response = await fetch(
+                      `http://localhost:3000/movie-summary?title=${encodeURIComponent(
+                        movieTitle
+                      )}&language=${encodeURIComponent(selectedLanguage)}`
+                    );
+                    const data = await response.json();
+
+                    if (response.ok) {
+                      if (data.summary) {
+                        summaryElement.innerText = data.summary;
+                      } else {
+                        summaryElement.innerText =
+                          'No summary available for this movie.';
+                      }
+                    } else {
+                      console.error(
+                        'Error fetching movie summary:',
+                        data.error
+                      );
+                    }
+                  } catch (error) {
+                    console.error('Error fetching movie summary:', error);
+                  }
+                }
+
+                selectMovieSummary.addEventListener(
+                  'change',
+                  fetchMovieSummary
+                );
+                selectLanSummary.addEventListener('change', fetchMovieSummary);
+
+                // searchForm
+                searchForm.addEventListener('submit', async (event) => {
+                  event.preventDefault(); 
+                  const searchWordsInput = document
+                    .getElementById('Q1_1')
+                    .value.trim();
+                  const allWordsCheckbox =
+                    document.getElementById('Q1_2').checked;
+                  const selectedMovieInput =
+                    document.getElementById('Q3_1').value;
+                  const allMoviesCheckbox =
+                    document.getElementById('Q3_2').checked;
+                  const genderCheckboxes = document.querySelectorAll(
+                    'input[name="Q4_1"]:checked'
+                  );
+                  const mainActorCheckboxes = document.querySelectorAll(
+                    'input[name="Q4_2"]:checked'
+                  );
+                  const actorNameInput = document
+                    .getElementById('Q4_3_1')
+                    .value.trim();
+                  const allActorsCheckbox =
+                    document.getElementById('Q4_3_2').checked;
+                  const mainPlaceSelect = document.getElementById('Q5_1').value;
+                  const allPlacesCheckbox =
+                    document.getElementById('Q5_2').checked;
+                  const checkboxesQ2 = document.querySelectorAll(
+                    'input[name="Q2"]:checked'
+                  );
+
+                  // Validate Section 1 (Search Words)
+                  if (!searchWordsInput && !allWordsCheckbox) {
+                    alert(
+                      "Please enter a search term or check 'All word search' in Section 1."
+                    );
+                    return;
+                  }
+
+                  // Validate Section 3 (Movie Title)
+                  if (!selectedMovieInput && !allMoviesCheckbox) {
+                    alert(
+                      "Please select a movie or check 'All movie search' in Section 3."
+                    );
+                    return;
+                  }
+
+                  // Validate Section 4 (Actor/Character)
+                  if (
+                    genderCheckboxes.length === 0 &&
+                    mainActorCheckboxes.length === 0 &&
+                    !actorNameInput &&
+                    !allActorsCheckbox
+                  ) {
+                    alert(
+                      "Please select a gender, main actor status, or enter an actor name, or check 'All actor search' in Section 4."
+                    );
+                    return;
+                  }
+
+                  // Validate Section 5 (Place)
+                  if (!mainPlaceSelect && !allPlacesCheckbox) {
+                    alert(
+                      "Please select a place or check 'All place search' in Section 5."
+                    );
+                    return;
+                  }
+
+                  // Rule 1: If ALL is selected for 1, 3, 4, and 5, at least one range in 2 must be selected
+                  if (searchWordsInput) {
+                    if (checkboxesQ2.length === 0) {
+                      alert('Please select at least one search scope.');
+                      return;
+                    }
+                  }
+
+                  // Rule 2: If ALL is selected for 1, 3, 4, and 5, at least one range in 2 must be selected
+                  if (
+                    !(
+                      allWordsCheckbox.checked &&
+                      (allActorsCheckbox.checked || allPlacesCheckbox.checked)
+                    )
+                  ) {
+                    if (checkboxesQ2.length === 0) {
+                      alert('Please select at least one search scope.');
+                      return;
+                    }
+                  }
+
+                  // Rule 3: If 1 is not selected, and at least one of 4 or 5 is selected, range 2 is optional
+                  if (
+                    genderCheckboxes.length > 0 ||
+                    mainActorCheckboxes.length > 0 ||
+                    actorNameInput ||
+                    allActorsCheckbox ||
+                    mainPlaceSelect.value ||
+                    allPlacesCheckbox.checked
+                  ) {
+                    // Range 2 is optional, no need to validate
+                  } else {
+                    alert('Please select at least one search criteria.');
+                    return;
+                  }
+
+                  const searchWords = [];
+                  if (allWordsCheckbox) searchWords.push('searchAllWords');
+                  else searchWords.push(searchWordsInput);
+
+                  const searchScope = [];
+                  if (document.getElementById('Q2_1').checked)
+                    searchScope.push('subText');
+                  if (document.getElementById('Q2_2').checked)
+                    searchScope.push('voiceText');
+                  if (document.getElementById('Q2_3').checked)
+                    searchScope.push('placeText');
+
+                  const selectedMovie = [];
+                  if (allMoviesCheckbox) selectedMovie.push('searchAllMovie');
+                  else selectedMovie.push(selectedMovieInput);
+
+                  const searchActor = [];
+                  if (genderCheckboxes.length > 0)
+                    searchActor.push(
+                      document.querySelector('input[name="Q4_1"]:checked').value
+                    );
+                  if (mainActorCheckboxes.length > 0)
+                    searchActor.push(
+                      document.querySelector('input[name="Q4_2"]:checked').value
+                    );
+                  if (allActorsCheckbox) searchActor.push('searchAllActor');
+                  if (actorNameInput) searchActor.push(actorNameInput);
+
+                  const actorName = document.getElementById('Q4_3_1').value;
+                  if (actorName) {
+                    searchActor.push(actorName);
+                  } else {
+                    searchActor.push('NoName');
+                  }
+
+                  const searchPlace = [];
+                  if (allPlacesCheckbox) searchPlace.push('searchAllPlace');
+                  else {
+                    searchPlace.push(mainPlaceSelect);
+                    searchPlace.push(
+                      document.getElementById('subOptions').value
+                    );
+                  }
+
+                  console.log(
+                    'Search Params:',
+                    searchWords,
+                    searchScope,
+                    selectedMovie,
+                    searchActor,
+                    searchPlace
+                  );
+                  // await
+                  await fetchMovieInfo(
+                    searchWords,
+                    searchScope,
+                    selectedMovie,
+                    searchActor,
+                    searchPlace
+                  );
+                });
+
+                get_lists();
+              });
+              // get_lists selectBox
+              function get_lists() {
+                var selectBox = document.getElementById('Q3_1');
+                var selectBox2 = document.getElementById('selectMovieSummary');
+                var xhr = new XMLHttpRequest();
+
+                xhr.onreadystatechange = function () {
+                  if (this.readyState === XMLHttpRequest.DONE) {
+                    if (this.status === 200) {
+                      try {
+                        var movieFiles = JSON.parse(this.responseText);
+                        console.log('Parsed movie files:', movieFiles);
+
+                        if (selectBox && selectBox2) {
+                          movieFiles.forEach(function (filePath) {
+                            var fileName = filePath
+                              .split('/')
+                              .pop()
+                              .split('\\')
+                              .pop();
+                            var fileTitle = fileName.replace(/\.[^/.]+$/, '');
+
+                            var option1 = document.createElement('option');
+                            option1.value = fileTitle;
+                            option1.text = fileTitle;
+                            selectBox.appendChild(option1);
+
+                            var option2 = document.createElement('option');
+                            option2.value = fileTitle;
+                            option2.text = fileTitle;
+                            selectBox2.appendChild(option2);
+                          });
+                        } else {
+                          console.error('Select box not found');
+                        }
+                      } catch (e) {
+                        console.error('Failed to parse JSON response:', e);
+                      }
+                    } else {
+                      console.error(
+                        'Failed to fetch movie titles:',
+                        this.status,
+                        this.statusText
+                      );
+                    }
+                  }
+                };
+                xhr.open(
+                  'GET',
+                  'http:/202.31.147.126:8080/get_file_list.php',
+                  true
+                );
+                xhr.send();
+              }
+            </script>
+            <div class="col-4 col-12-medium">
+              <!-- Sidebar -->
+              <section class="box">
+                <a href="#" class="image featured"
+                  ><img src="assets/css/images/tag.jpg" alt=""
+                /></a>
+                <header>
+                  <h2>검색 태그</h2>
+                </header>
+                <p>
+                  아래 항목들을 확인한 후 검색 버튼을 클릭하세요. <br />
+                  "검색하지 않음"을 선택하지 않으면 모든 해당 항목이 검색됩니다.
+                </p>
+                <form id="searchForm" action="/multi" method="post">
+                  <div class="tag_1">
+                    <h4>1) 단어 선택:</h4>
+                    <input
+                      style="height: 30px; margin: 5px"
+                      type="text"
+                      name="Q1"
+                      id="Q1_1"
+                    />
+                    &ensp;<input
+                      type="checkbox"
+                      name="Q1"
+                      id="Q1_2"
+                      value="All search word"
+                    />모든 단어 선택
+                  </div>
+                  <br />
+                  <div class="tag_2">
+                    <h4>2) 검색 범위 (중복 선택 가능):</h4>
+                    &ensp;<input
+                      type="checkbox"
+                      name="Q2"
+                      id="Q2_1"
+                      value="subtitles"
+                    />자 막 &nbsp;
+                    <input
+                      type="checkbox"
+                      name="Q2"
+                      id="Q2_2"
+                      value="sound"
+                    />소 리 &nbsp;
+                    <input
+                      type="checkbox"
+                      name="Q2"
+                      id="Q2_3"
+                      value="scene"
+                    />장 면
+                  </div>
+                  <br />
+                  <div class="tag_3">
+                    <h4>3) 영화 제목 검색:</h4>
+                    <select style="margin: 5px" name="Q3" id="Q3_1">
+                      <option value="" selected disabled>영화 선택</option>
+                    </select>
+                    &ensp;<input
+                      type="checkbox"
+                      name="Q3"
+                      id="Q3_2"
+                      value="All search word"
+                    />모든 영화 검색
+                  </div>
+                  <br />
+                  <div class="tag_4">
+                    <h4>4) 인물 검색(중복 선택 가능):</h4>
+                    <h4>&emsp;(1) 성별:</h4>
+                    &emsp;&emsp;<input
+                      type="checkbox"
+                      name="Q4_1"
+                      id="Q4_1_1"
+                      value="man"
+                    />남 성 &nbsp;
+                    <input
+                      type="checkbox"
+                      name="Q4_1"
+                      id="Q4_1_2"
+                      value="women"
+                    />여 성 &nbsp;
+                    <h4>&emsp;(2) 주연 배우:</h4>
+                    &emsp;&emsp;<input
+                      type="checkbox"
+                      name="Q4_2"
+                      id="Q4_2_1"
+                      value="Y"
+                    />Yes &nbsp;
+                    <input
+                      type="checkbox"
+                      name="Q4_2"
+                      id="Q4_2_2"
+                      value="N"
+                    />No &nbsp;
+                    <h4>&emsp;(3) 주연 배우 검색:</h4>
+                    <input
+                      style="
+                        width: 95%;
+                        height: 30px;
+                        margin: 5px;
+                        margin-left: 20px;
+                      "
+                      type="text"
+                      name="Q4_3"
+                      id="Q4_3_1"
+                      autocomplete="off"
+                    />
+                    <div class="autocomplete"></div>
+                    <input
+                      style="margin-left: 10px"
+                      type="checkbox"
+                      name="Q4_3"
+                      id="Q4_3_2"
+                      value="All search word"
+                    />모든 배우 검색
+                  </div>
+                  <br />
+                  <div class="tag_5">
+                    <h4>5) 장소 검색:</h4>
+                    <select
+                      style="margin: 5px"
+                      name="Q5_1"
+                      id="Q5_1"
+                      onchange="showSubOptions(this.value)"
+                    >
+                      <option value="" selected disabled>
+                        영화 속 장소를 선택하세요.
+                      </option>
+                      <option value="education">Educational</option>
+                      <option value="restaurant">Restaurant</option>
+                      <option value="nature">Natural Scenery</option>
+                      <option value="artificial">
+                        Artificial Composition Environment
+                      </option>
+                      <option value="residence">Residential</option>
+                      <option value="accommodation">Accommodation</option>
+                      <option value="religious_medical">
+                        Religious/Medical
+                      </option>
+                      <option value="public">Public</option>
+                      <option value="transportation">Transportation</option>
+                      <option value="commercial">Commercial</option>
+                      <option value="cultural_heritage">
+                        Cultural/Historic
+                      </option>
+                      <option value="sports_leisure">Sports/Leisure</option>
+                      <option value="entertainment">Entertainment</option>
+                      <option value="performance">Performance</option>
+                      <option value="event_office">Event/Office</option>
+                      <option value="building_interior">
+                        Building Interior
+                      </option>
+                      <option value="urban_environment">
+                        Urban Environment
+                      </option>
+                      <option value="road_transportation">
+                        Road/Transport Facilities
+                      </option>
+                      <option value="art_exhibition">Art/Exhibition</option>
+                      <option value="industrial">Industrial</option>
+                    </select>
+                    <select
+                      style="margin: 5px; display: none"
+                      name="Q5_1"
+                      id="subOptions"
+                    ></select>
+                    &ensp;<input
+                      type="checkbox"
+                      name="Q5_2"
+                      id="Q5_2"
+                      value="All search place"
+                    />모든 장소 검색
+                  </div>
+                  <br />
+                  <button type="submit" id="tagApplyButton">Apply</button>
+                </form>
+              </section>
+            </div>
+          </div>
+        </div>
+      </section>
+      <!-- footer -->
+      <section id="footer">
+        <div class="container">
+          <div class="row">
+            <div class="col-4 col-6-medium col-12-small">
+              <section>
+                <header>
+                  <h2>Used Library & API</h2>
+                </header>
+                <ul class="divided">
+                  <li>Python EasyOCR Library</li>
+                  <li>Python OpenCV Library</li>
+                  <li>Python OpenAI Whisper</li>
+                  <li>Google Cloud Speech-to-Text API</li>
+                  <li>Google Translate API</li>
+                </ul>
+              </section>
+            </div>
+            <div class="col-4 col-6-medium col-12-small">
+              <section>
+                <header>
+                  <h2>Affiliated University</h2>
+                </header>
+                <ul class="divided">
+                  <li>
+                    <a href="https://www.kunsan.ac.kr/cie/index.kunsan"
+                      >Department of Computer and Information Engineering,
+                      Kunsan national University
+                    </a>
+                  </li>
+                </ul>
+              </section>
+            </div>
+            <div class="col-4 col-12-medium">
+              <section>
+                <header>
+                  <h2>Suggestions</h2>
+                </header>
+                <ul class="social">
+                  <li>
+                    <a class="icon brands fa-facebook-f" href="#"
+                      ><span class="label">Facebook</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-twitter" href="#"
+                      ><span class="label">Twitter</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-dribbble" href="#"
+                      ><span class="label">Dribbble</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-tumblr" href="#"
+                      ><span class="label">Tumblr</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-linkedin-in" href="#"
+                      ><span class="label">LinkedIn</span></a
+                    >
+                  </li>
+                </ul>
+                <ul class="contact">
+                  <li>
+                    <h3>Address</h3>
+                    <p>
+                      Untitled Incorporated<br />
+                      1234 Somewhere Road Suite<br />
+                      Gunsan, TN 00000
+                    </p>
+                  </li>
+                  <li>
+                    <h3>Mail</h3>
+                    <p><a href="#">syys10280@naver.com</a></p>
+                  </li>
+                  <li>
+                    <h3>Phone</h3>
+                    <p>(+82) 10-0000-0000</p>
+                  </li>
+                </ul>
+              </section>
+            </div>
+            <div class="col-12">
+              <!-- Copyright -->
+              <div id="copyright">
+                <ul class="links">
+                  <li>&copy; Modal-Lens. All rights reserved.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <title>ScenX</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="right-sidebar is-preload">
+    <div id="page-wrapper">
+      <!-- Header -->
+      <nav id="nav">
+        <h1><a href="main_page.html">ScenX</a></h1>
+        <ul>
+          <li><a href="main_page.html">Home</a></li>
+          <li><a href="upload_page.html">Upload Movies</a></li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Scene Search</a>
+            <div class="dropdown-content">
+              <a href="search_file_page.html">Scene Search</a>
+              <a href="recommend_tag_page.html">Tag Recommend</a>
+            </div>
+          </li>
+          <li><a href="translate_page.html">Translation</a></li>
+        </ul>
+      </nav>
+
+      <!-- Main -->
+      <section id="main">
+        <div class="container">
+          <div class="row">
+            <div class="search-tag">
+              <!-- 검색 페이지 소개 -->
+              <article class="box post">
+                <!-- <a href="#" class="image featured"><img src="images/pic01.jpg" alt="" /></a>                                                            -->
+                <header>
+                  <h2>파일로 검색하기</h2>
+                  <p>영화의 특정 장면을 찾고 싶다면 파일을 업로드하세요.</p>
+                </header>
+                <p>
+                  찾고자 하는 장면의 일부를 업로드하면, 업로드한 파일에서 해당
+                  장면을 찾아드립니다. 아래에 파일을 업로드하면 적절한 장면을
+                  검색할 수 있으며, 검색된 타임스탬프를 클릭하여 해당 장면을
+                  재생할 수 있습니다.
+                </p>
+                <form id="additionalUploadForm" enctype="multipart/form-data">
+                  <div class="form-row">
+                    <!-- 추가 파일 종류 선택 -->
+                    <select id="fileTypeSelect" name="fileType" required>
+                      <option value="image">Image</option>
+                      <option value="text">Text</option>
+                      <option value="voice">Voice</option>
+                    </select>
+                    <br />
+                    <div class="form-row-inputdata">
+                      <input
+                        style="
+                          width: 100px;
+                          margin-right: 20px;
+                          text-align: center;
+                        "
+                        type="text"
+                        id="additionalYearInput"
+                        name="year"
+                        placeholder="Year"
+                        required
+                      />
+                      <input
+                        style="text-align: center"
+                        type="text"
+                        id="additionalTitleInput"
+                        name="title"
+                        placeholder="Title"
+                        required
+                      />
+                    </div>
+                    <input
+                      type="file"
+                      id="additionalFileInput"
+                      name="additionalFile"
+                      accept="image/*, .txt, audio/*"
+                      required
+                    />
+                    <button id="additionalUploadButton" type="button">
+                      Upload
+                    </button>
+                  </div>
+                </form>
+              </article>
+            </div>
+            <div class="search-tag">
+              <!-- 검색된 영화 재생 -->
+              <article class="box post">
+                <header>
+                  <h2>텍스트로 검색하기</h2>
+                  <p>검색할 영화의 문장을 입력하세요.</p>
+                </header>
+                <p>
+                  찾고자 하는 장면을 텍스트로 입력하여 검색해보세요. 아래에
+                  원하는 장면에 대한 정보를 입력하면, 현재 보유 중인 파일에서
+                  일치하는 장면을 찾아 재생할 수 있습니다. 정보를 자세히 입력할
+                  수록 검색 정확도가 높아집니다.
+                </p>
+                <form id="searchForm" enctype="multipart/form-data">
+                  <div
+                    class="form-row"
+                    style="
+                      display: flex;
+                      align-items: center;
+                      justify-content: center;
+                      gap: 10px;
+                    "
+                  >
+                    <input
+                      style="
+                        flex: 1;
+                        padding: 10px;
+                        border-radius: 5px;
+                        border: 1px solid #ccc;
+                        text-align: center;
+                      "
+                      type="text"
+                      id="searchTextInput"
+                      name="title"
+                      placeholder="Feel free to type in the scene you want to search."
+                      required
+                    />
+                    <button
+                      id="textSearchButton"
+                      type="button"
+                      style="
+                        padding: 10px 20px;
+                        border-radius: 5px;
+                        border: 1px solid #d52349;
+                        background-color: #d52349;
+                        color: #fff;
+                        cursor: pointer;
+                      "
+                    >
+                      Search
+                    </button>
+                  </div>
+                </form>
+              </article>
+              <!-- 검색된 영화 재생 -->
+              <div class="search-result">
+                <article class="box post">
+                  <header>
+                    <h2>검색 결과</h2>
+                  </header>
+                  <p id="searchInstructions">
+                    영화를 검색하려면 오른쪽의 검색 태그를 입력하고 적용 버튼을
+                    클릭하세요. <br />
+                    검색된 영화는 재생버튼을 눌러 볼 수 있으며, 타임스탬프를
+                    누르면 해당 장면으로 바로 이동할 수 있습니다.
+                  </p>
+                  <div
+                    id="videoPlayerContainer"
+                    style="margin-bottom: 20px"
+                  ></div>
+                  <div id="results_search"></div>
+                </article>
+              </div>
+            </div>
+
+            <script>
+              function playScene(movieName, timeStamp) {
+                  const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+                  videoPlayerContainer.innerHTML = ''; // Clear previous video
+                  movieName = movieName.replace(/\.[^/.]+$/, "");
+                  const videoPlayer = document.createElement('video');
+                  videoPlayer.controls = true;
+                  videoPlayer.src = `http://localhost:3000/movies/${encodeURIComponent(movieName)}.mp4#t=${timeStamp}`;
+                  videoPlayer.autoplay = true;
+                  videoPlayer.className = 'custom-video-player';
+                  videoPlayer.style = 'width: 80%; height: auto;'
+
+                  videoPlayerContainer.appendChild(videoPlayer);
+              }
+
+              function convertTimestampToSeconds(timestamp) {
+                  const parts = timestamp.split(':');
+                  return (+parts[0] * 60 * 60) + (+parts[1] * 60) + (+parts[2]);
+              }
+
+              function jumpToTime(timeInSeconds, movieTitle, event) {
+                  event.preventDefault(); // Prevent the default link behavior
+
+                  // Find the video player or create a new one if it doesn't exist
+                  const videoPlayer = document.querySelector('video') || document.createElement('video');
+                  videoPlayer.controls = true;
+
+                  // Set the movie source and jump to the specified time
+                  videoPlayer.src = `http://localhost:3000/movies/${encodeURIComponent(movieTitle)}.mp4`;
+                  videoPlayer.currentTime = timeInSeconds;
+                  videoPlayer.autoplay = true;
+                  videoPlayer.className = 'custom-video-player';
+                  videoPlayer.style = 'width: 80%; height: auto;';
+
+                  const videoPlayerContainer = document.getElementById('videoPlayerContainer');
+                  videoPlayerContainer.innerHTML = ''; // Clear previous video
+                  videoPlayerContainer.appendChild(videoPlayer);
+              }
+              // 추가 업로드 버튼 클릭 시 이벤트 리스너
+              document.addEventListener('DOMContentLoaded', () => { 
+                  document.getElementById('additionalUploadButton').addEventListener('click', async () => {
+                      const additionalFileInput = document.getElementById('additionalFileInput');
+                      const additionalYearInput = document.getElementById('additionalYearInput');
+                      const additionalTitleInput = document.getElementById('additionalTitleInput');
+                      const fileTypeSelect = document.getElementById('fileTypeSelect');
+                      
+                      // 입력된 파일이 없는 경우 알림
+                      if (!additionalFileInput.files.length) {
+                          alert('Please select a file to upload');
+                          return;
+                      }
+          
+                      const formData = new FormData();												
+                      formData.append('year', additionalYearInput.value);
+                      formData.append('title', additionalTitleInput.value);
+                      formData.append('fileType', fileTypeSelect.value);
+                      formData.append('additionalFile', additionalFileInput.files[0]);
+          
+                      try {
+                          const response = await fetch('http://202.31.147.126:3000/uploadAdditional', {
+                              method: 'POST',
+                              body: formData
+                          });
+      
+                          if (response.ok) { // 업로드 성공 시 알림
+                              const data = await response.text();
+                              alert(data);
+                          } else { // 기타 에러 처리
+                              const errorMessage = await response.text();
+                              alert('Error: ' + errorMessage);
+                          }
+                      } catch (error) {
+                          console.error('Error:', error.message);
+                          alert('Error: Failed to upload file');
+                      }
+                      fetchLatestEntry();
+                  });
+
+                  // Text Search Button Event Listener
+                  document.getElementById('textSearchButton').addEventListener('click', async () => {
+                      const inputText = document.getElementById('searchTextInput').value;
+
+                      if (!inputText) {
+                          alert('Please enter a scene description.');
+                          return;
+                      }
+
+                      try {
+                          // Send the input text to the server for processing
+                          const response = await fetch('http://localhost:3000/processSceneSearch', {
+                              method: 'POST',
+                              headers: {
+                                  'Content-Type': 'application/json',
+                              },
+                              body: JSON.stringify({ inputSentence: inputText }),
+                          });
+
+                          const { results, searchCriteria } = await response.json();
+
+                          if (response.ok) {
+                              document.getElementById('searchInstructions').style.display = 'none';
+                              // Display the results and initialize the player
+                              displayResults(results, searchCriteria);
+                              if (results.length > 0) {
+                                  const firstResult = results[0];
+                                  playScene(firstResult.movieName, convertTimestampToSeconds(firstResult.timeStamp));
+                              }
+                          } else {
+                              alert('Error: ' + results.error);
+                          }
+                      } catch (error) {
+                          console.error('Error:', error);
+                          alert('Failed to search for scenes.');
+                      }
+                  });
+                  
+                  function displayResults(results, searchCriteria) {
+                      const resultsContainer = document.getElementById('results_search');
+                  
+                      resultsContainer.innerHTML = ''; // Clear previous results
+
+
+                      if (results.length === 0) {
+                          resultsContainer.innerHTML = '<p>No matching scenes found.</p>';
+                          return;
+                      }
+
+                      // Group results by movie name
+                      const movieGroups = {};
+                      results.forEach(result => {
+                          if (!movieGroups[result.movieName]) {
+                              movieGroups[result.movieName] = [];
+                          }
+                          movieGroups[result.movieName].push(result);
+                      });
+
+                      // Display results grouped by movie
+                      Object.keys(movieGroups).forEach(movieName => {
+                          const movieDiv = document.createElement('div');
+                          movieDiv.className = 'movie-group';
+                          movieDiv.style.marginBottom = '20px';
+                          movieDiv.style.border = '1px solid #ccc';
+                          movieDiv.style.padding = '10px';
+                          movieDiv.style.maxHeight = '200px'; // Limit height for scrolling
+                          movieDiv.style.overflowY = 'auto';
+                      
+                          let movieTitleElement = `<h3 class="movie-title" data-title="${movieName}" style="cursor: pointer;">${movieName}</h3>`;
+                          movieDiv.innerHTML += movieTitleElement;
+
+                          movieGroups[movieName].forEach(scene => {
+                              const movienameinput = movieName;
+                              const sceneDiv = document.createElement('div');
+                              sceneDiv.className = 'scene-info';
+                              
+                              const escapedMovieName = movieName.replace(/'/g, "\\'");
+                              let sceneInfo = `
+                                  <p><strong>${scene.movieName}</strong> - 
+                                  <a href="#" onclick="jumpToTime(${convertTimestampToSeconds(scene.timeStamp)}, '${escapedMovieName}', event)">
+                                      ${scene.timeStamp}
+                                  </a><br>`;
+                              if (scene.subText) {
+                                  sceneInfo += `<strong>Subtitle:</strong> ${scene.subText}<br>`;
+                              }
+                              if (scene.voiceText) {
+                                  sceneInfo += `<strong>Voice:</strong> ${scene.voiceText}<br>`;
+                              }
+                              if (scene.placeText) {
+                                  sceneInfo += `<strong>Place:</strong> ${scene.placeText}<br>`;
+                              }
+                              if (scene.actorName) {
+                                  sceneInfo += `<strong>Actor:</strong> ${scene.actorName}<br>`;
+                              }
+
+                              sceneInfo += `</p>`;
+                              sceneDiv.innerHTML = sceneInfo;
+                              movieDiv.appendChild(sceneDiv);
+                          });
+
+                          resultsContainer.appendChild(movieDiv);
+                      });
+                  }
+
+                  // Function to fetch the latest entry and search for matching scenes
+                  async function fetchLatestEntry() {
+                      try {
+                          const response = await fetch('http://localhost:3000/get-latest-entry');
+                          const latestEntry = await response.json();
+                          //console.log(latestEntry);
+                          // Use the non-null values to search for matching scenes
+                          const { subText, voiceText, placeText } = latestEntry;
+
+                          const searchParams = new URLSearchParams();
+
+                          if (subText) searchParams.append('subText', subText);
+                          if (voiceText) searchParams.append('voiceText', voiceText);
+                          if (placeText) searchParams.append('placeText', placeText);
+                          //console.log("searchParams\n"+searchParams);
+                          
+                          const matchingScenesResponse = await fetch(`http://localhost:3000/search-matching-scenes?${searchParams.toString()}`);
+                          //console.log("matchingScenesResponse\n" + matchingScenesResponse);
+                          const matchingScenes = await matchingScenesResponse.json();
+                          //console.log("matchingScenes\n"+matchingScenes);
+
+                          if (matchingScenes.length > 0) {
+                              const resultsContainer = document.getElementById('results_search');
+                              resultsContainer.innerHTML = '';
+
+                              matchingScenes.forEach(scene => {
+                                  const sceneElement = document.createElement('div');
+                                  sceneElement.innerHTML = `
+                                      <strong>${scene.movieName}</strong> - 
+                                      <a href="#" onclick="playScene('${scene.movieName}', '${scene.timeStamp}')">
+                                          ${scene.timeStamp}
+                                      </a>
+                                  `;
+                                  resultsContainer.appendChild(sceneElement);
+                              });
+                              // Automatically play the first matching scene
+                              //console.log("matchingScenes\n"+matchingScenes);
+                              playScene(matchingScenes[0].movieName, matchingScenes[0].timeStamp);
+                          } else {
+                              alert('No matching scenes found.');
+                          }
+                      } catch (error) {
+                          console.error('Error:', error.message);
+                          alert('Failed to fetch the latest entry and search for matching scenes.');
+                      }
+                  }
+                  
+              });
+          </script>
+          </div>
+        </div>
+      </section>
+      <!-- footer -->
+      <section id="footer">
+        <div class="container">
+          <div class="row">
+            <!-- 사용된 라이브러리 및 API 섹션 -->
+            <div class="col-4 col-6-medium col-12-small">
+              <section>
+                <header>
+                  <h2>Used Library & API</h2>
+                </header>
+                <ul class="divided">
+                  <li>Python EasyOCR Library</li>
+                  <li>Python OpenCV Library</li>
+                  <li>Python OpenAI Whisper</li>
+                  <li>Google Cloud Speech-to-Text API</li>
+                  <li>Google Translate API</li>
+                </ul>
+              </section>
+            </div>
+           <!-- 연계된 대학 섹션 -->
+            <div class="col-4 col-6-medium col-12-small">
+              <section>
+                <header>
+                  <h2>Affiliated University</h2>
+                </header>
+                <ul class="divided">
+                  <li>
+                    <a href="https://www.kunsan.ac.kr/cie/index.kunsan"
+                      >Department of Computer and Information Engineering,
+                      Kunsan national University
+                    </a>
+                  </li>
+                </ul>
+              </section>
+            </div>
+            <!-- 제안 섹션 -->
+            <div class="col-4 col-12-medium">
+              <section>
+                <header>
+                  <h2>Suggestions</h2>
+                </header>
+                <ul class="social">
+                  <li>
+                    <a class="icon brands fa-facebook-f" href="#"
+                      ><span class="label">Facebook</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-twitter" href="#"
+                      ><span class="label">Twitter</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-dribbble" href="#"
+                      ><span class="label">Dribbble</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-tumblr" href="#"
+                      ><span class="label">Tumblr</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-linkedin-in" href="#"
+                      ><span class="label">LinkedIn</span></a
+                    >
+                  </li>
+                </ul>
+                <ul class="contact">
+                  <li>
+                    <h3>Address</h3>
+                    <p>
+                      Untitled Incorporated<br />
+                      1234 Somewhere Road Suite<br />
+                      Gunsan, TN 00000
+                    </p>
+                  </li>
+                  <li>
+                    <h3>Mail</h3>
+                    <p><a href="#">syys10280@naver.com</a></p>
+                  </li>
+                  <li>
+                    <h3>Phone</h3>
+                    <p>(+82) 10-0000-0000</p>
+                  </li>
+                </ul>
+              </section>
+            </div>
+            <div class="col-12">
+              <!-- Copyright -->
+              <div id="copyright">
+                <ul class="links">
+                  <li>&copy; Modal-Lens. All rights reserved.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

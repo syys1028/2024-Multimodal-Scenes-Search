@@ -1,0 +1,13 @@
+(2016) A mermaid's tale_ko_FTF.txt
+(2016) A mermaid's tale_ko_FTT.txt
+(2023) Tonight Youre Sleeping with Me_ja_TTF.txt
+castaway_ko_TTF.txt
+Jerry Maguire_ja_FTF.txt
+(2024) notebook_ko_TFT.txt
+(2004) notebook_ja_TTF.txt
+(2016) A mermaid's tale_en_TTF.txt
+(2004) notebook_ja_TFT.txt
+(2004) notebook_ja_FTF.txt
+(2022) Ticket to Paradise_en_TFF.txt
+(2022) Ticket to Paradise_ja_FTF.txt
+(2022) Ticket to Paradise_ja_TTF.txt

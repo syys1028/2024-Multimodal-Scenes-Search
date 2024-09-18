@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="kr">
+  <head>
+    <title>ScenX</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+  </head>
+  <body class="no-sidebar is-preload">
+    <div id="page-wrapper">
+      <!-- Header -->
+      <nav id="nav">
+        <h1><a href="main_page.html">ScenX</a></h1>
+        <ul>
+          <li><a href="main_page.html">Home</a></li>
+          <li><a href="upload_page.html">Upload Movies</a></li>
+          <li class="dropdown">
+            <a href="javascript:void(0)" class="dropbtn">Scene Search</a>
+            <div class="dropdown-content">
+              <a href="search_file_page.html">Scene Search</a>
+              <a href="recommend_tag_page.html">Tag Recommend</a>
+            </div>
+          </li>
+          <li class="current"><a href="translate_page.html">Translation</a></li>
+        </ul>
+      </nav>
+      <!-- Main -->
+      <section id="main">
+        <div class="container">
+          <!-- 번역 페이지 소개 -->
+          <article class="box post">
+            <a href="#" class="image featured"
+              ><img src="assets/css/images/translate.jpg" alt=""
+            /></a>
+            <header>
+              <h2>번역 다운로드</h2>
+              <p>
+                영화의 자막, 오디오, 그리고 장면 텍스트를 원하는 언어로 번역하여
+                다운로드할 수 있습니다.
+              </p>
+            </header>
+            <p>
+              이 과정은 두 단계로 나누어집니다. 번역을 완료한 후, 아래 항목을
+              입력하여 번역 텍스트를 생성한 뒤 텍스트를 다운로드할 수 있습니다.
+              원하는 영화가 없을 경우, 업로드 페이지에서 직접 업로드하세요. 파일
+              제목과 내용 예시는 다음과 같습니다. 파일 제목에 포함된 'TFT'와
+              같은 항목은 자막 텍스트, 음성 텍스트, 장면 텍스트의 선택 여부를
+              나타냅니다. (T/F)
+              <br />
+              <span class="emphasis-red"
+                >ex) 파일 이름: movieA_eng_TFT.txt
+                <br />
+                파일 내용: 타임스탬프(00:00:00) | 자막 텍스트 / 음성 텍스트 /
+                장면 텍스트 / 주요 배우 여부(Y/N)</span
+              >
+            </p>
+          </article>
+          <!-- 번역 파일 생성 -->
+          <article class="box post">
+            <section>
+              <header>
+                <h2>번 역</h2>
+              </header>
+              <p>
+                먼저 아래 저장된 영화 목록 중 하나를 선택하고, 원하는 언어를
+                클릭하세요. (현재 지원되는 언어: 한국어, 영어, 일본어)
+                마지막으로 번역할 범위를 선택하세요(중복 선택 가능). 모든 설정이
+                완료되면 데이터 생성 버튼을 클릭하세요.
+              </p>
+              <form id="translateForm">
+                <!-- 번역할 영화 선택 -->
+                <div>
+                  <h3>영화 선택:</h3>
+                  <select
+                    style="margin: 10px; font-size: 0.9em"
+                    id="movie_select"
+                    name="movie_select"
+                  >
+                    <option value="" selected disabled>영화 선택</option>
+                  </select>
+                </div>
+                <div>
+                  <h3>언어 선택:</h3>
+                  <select
+                    style="margin: 10px; font-size: 0.9em"
+                    id="language_select"
+                    name="language_select"
+                  >
+                    <option value="en">English</option>
+                    <option value="ko">Korean Language</option>
+                    <option value="ja">Japanese</option>
+                  </select>
+                </div>
+                <div>
+                  <h3>검색 범위:</h3>
+                  <input
+                    style="margin: 10px"
+                    type="checkbox"
+                    id="subtitles"
+                    name="scope"
+                    value="subtitles"
+                  />
+                  자막
+                  <input
+                    style="margin: 10px"
+                    type="checkbox"
+                    id="voice"
+                    name="scope"
+                    value="voice"
+                  />
+                  목소리
+                  <input
+                    style="margin: 10px"
+                    type="checkbox"
+                    id="scenes"
+                    name="scope"
+                    value="scenes"
+                  />
+                  장면
+                </div>
+                <br />
+                <div>
+                  <button id="createData" type="button">데이터 생성</button>
+                </div>
+              </form>
+            </section>
+            <!-- 업로드된 파일 다운로드 -->
+            <section>
+              <header>
+                <h2>확인 & 다운로드</h2>
+              </header>
+              <p>
+                번역 파일이 생성되면 아래 다운로드 버튼을 클릭하여 저장하세요.
+                이 데이터를 허가 없이 복사, 다운로드, 배포 등에 사용할 경우 관련
+                지적 재산권 법에 따라 법적 책임을 질 수 있습니다.
+              </p>
+              <!-- Download Button -->
+              <div>
+                <button id="downloadData">확인 & 다운로드</button>
+              </div>
+            </section>
+          </article>
+          <script>
+            // Create Data 버튼 클릭 이벤트 리스너
+            document
+              .getElementById('createData')
+              .addEventListener('click', function () {
+                const movie = document.getElementById('movie_select').value;
+                const language =
+                  document.getElementById('language_select').value;
+                // 선택되었으면 'T', 아니면 'F' 설정
+                const subtitles = document.getElementById('subtitles').checked
+                  ? 'T'
+                  : 'F';
+                const voice = document.getElementById('voice').checked
+                  ? 'T'
+                  : 'F';
+                const scenes = document.getElementById('scenes').checked
+                  ? 'T'
+                  : 'F';
+                const fileName = `${movie}_${language}_${subtitles}${voice}${scenes}.txt`;
+
+                // 파일 생성 요청
+                fetch('http://localhost:3000/createFile', {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                  },
+                  body: JSON.stringify({ fileName }), // 파일 이름을 JSON 형식으로 포함
+                })
+                  .then((response) => {
+                    if (response.ok) {
+                      return response.text(); // 응답이 성공적일 경우 응답 본문을 텍스트로 파싱
+                    } else {
+                      throw new Error('Failed to create file.');
+                    }
+                  })
+                  .then((data) => {
+                    alert('File created successfully!'); // 파일 생성 성공
+                    document.getElementById('downloadData').disabled = false; // 다운로드 버튼을 활성화
+                  })
+                  .catch((error) => {
+                    console.error('Error creating file:', error);
+                    alert('Failed to create file.');
+                  });
+              });
+            // Download 버튼 클릭 이벤트 리스너
+            document
+              .getElementById('downloadData')
+              .addEventListener('click', function () {
+                const movie = document.getElementById('movie_select').value;
+                const language =
+                  document.getElementById('language_select').value;
+                const subtitles = document.getElementById('subtitles').checked
+                  ? 'T'
+                  : 'F';
+                const voice = document.getElementById('voice').checked
+                  ? 'T'
+                  : 'F';
+                const scenes = document.getElementById('scenes').checked
+                  ? 'T'
+                  : 'F';
+                const fileName = `${movie}_${language}_${subtitles}${voice}${scenes}.txt`;
+
+                fetch(
+                  `http://localhost:3000/downloadFile?fileName=${fileName}`,
+                  {
+                    method: 'GET',
+                  }
+                )
+                  .then((response) => {
+                    if (response.ok) {
+                      return response.blob();
+                    } else {
+                      throw new Error('File not ready for download.');
+                    }
+                  })
+                  .then((blob) => {
+                    const url = window.URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.style.display = 'none';
+                    a.href = url;
+                    a.download = fileName;
+                    document.body.appendChild(a);
+                    a.click();
+                    window.URL.revokeObjectURL(url);
+                  })
+                  .catch((error) => {
+                    console.error('Error downloading file:', error);
+                    alert('File not ready for download.');
+                  });
+              });
+            // 영화 제목 목록을 가져와서 셀렉트 박스를 채우는 함수
+            function get_lists() {
+              var selectBox = document.getElementById('movie_select'); // 영화 제목을 표시할 셀렉트 박스 가져오기
+              var xhr = new XMLHttpRequest(); // XMLHttpRequest 객체 생성
+
+              xhr.onreadystatechange = function () {
+                if (this.readyState === XMLHttpRequest.DONE) {
+                  // 요청이 완료되면
+                  if (this.status === 200) {
+                    // HTTP 상태 코드가 200이면
+                    try {
+                      var movieFiles = JSON.parse(this.responseText); // JSON 형식의 응답을 파싱하여 영화 파일 목록 가져오기
+                      console.log('Parsed movie files:', movieFiles); // 디버깅용 로그 출력
+
+                      // 각 파일 경로에서 파일 이름 추출 및 확장자 제거 후 옵션으로 추가
+                      movieFiles.forEach(function (filePath) {
+                        var fileName = filePath
+                          .split('/')
+                          .pop()
+                          .split('\\')
+                          .pop(); // 파일 경로에서 파일 이름 추출
+                        var fileTitle = fileName.replace(/\.[^/.]+$/, ''); // 파일 이름에서 확장자 제거
+
+                        var option = document.createElement('option'); // 새 옵션 요소 생성
+                        option.value = fileTitle; // 옵션 값 설정
+                        option.text = fileTitle; // 옵션 텍스트 설정
+                        selectBox.appendChild(option); // 셀렉트 박스에 옵션 추가
+                      });
+                    } catch (e) {
+                      console.error('Failed to parse JSON response:', e); // JSON 응답 파싱 실패 시 에러 로그 출력
+                    }
+                  } else {
+                    console.error(
+                      'Failed to fetch movie titles:',
+                      this.status,
+                      this.statusText
+                    ); // 영화 제목 가져오기 실패 시 에러 로그 출력
+                  }
+                }
+              };
+              xhr.open('GET', 'http://localhost:8080/get_file_list.php', true); // GET 요청 설정
+              xhr.send(); // 요청 전송
+            }
+            get_lists();
+          </script>
+        </div>
+      </section>
+      <!-- footer -->
+      <section id="footer">
+        <div class="container">
+          <div class="row">
+            <!-- 사용된 라이브러리 및 API 섹션 -->
+            <div class="col-4 col-6-medium col-12-small">
+              <section>
+                <header>
+                  <h2>Used Library & API</h2>
+                </header>
+                <ul class="divided">
+                  <li>Python EasyOCR Library</li>
+                  <li>Python OpenCV Library</li>
+                  <li>Python OpenAI Whisper</li>
+                  <li>Google Cloud Speech-to-Text API</li>
+                  <li>Google Translate API</li>
+                </ul>
+              </section>
+            </div>
+            <!-- 연계된 대학 섹션 -->
+            <div class="col-4 col-6-medium col-12-small">
+              <section>
+                <header>
+                  <h2>Affiliated University</h2>
+                </header>
+                <ul class="divided">
+                  <li>
+                    <a href="https://www.kunsan.ac.kr/cie/index.kunsan"
+                      >Department of Computer and Information Engineering,
+                      Kunsan national University
+                    </a>
+                  </li>
+                </ul>
+              </section>
+            </div>
+            <!-- 제안 섹션 -->
+            <div class="col-4 col-12-medium">
+              <section>
+                <header>
+                  <h2>Suggestions</h2>
+                </header>
+                <ul class="social">
+                  <li>
+                    <a class="icon brands fa-facebook-f" href="#"
+                      ><span class="label">Facebook</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-twitter" href="#"
+                      ><span class="label">Twitter</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-dribbble" href="#"
+                      ><span class="label">Dribbble</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-tumblr" href="#"
+                      ><span class="label">Tumblr</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-linkedin-in" href="#"
+                      ><span class="label">LinkedIn</span></a
+                    >
+                  </li>
+                </ul>
+                <ul class="contact">
+                  <li>
+                    <h3>Address</h3>
+                    <p>
+                      Untitled Incorporated<br />
+                      1234 Somewhere Road Suite<br />
+                      Gunsan, TN 00000
+                    </p>
+                  </li>
+                  <li>
+                    <h3>Mail</h3>
+                    <p><a href="#">syys10280@naver.com</a></p>
+                  </li>
+                  <li>
+                    <h3>Phone</h3>
+                    <p>(+82) 10-0000-0000</p>
+                  </li>
+                </ul>
+              </section>
+            </div>
+            <div class="col-12">
+              <!-- Copyright -->
+              <div id="copyright">
+                <ul class="links">
+                  <li>&copy; Modal-Lens. All rights reserved.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+  </body>
+</html>

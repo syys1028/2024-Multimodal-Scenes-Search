@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+
+<html lang="kr">
+  <head>
+    <title>ScEnX</title>
+    <meta charset="utf-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, user-scalable=no"
+    />
+    <link rel="stylesheet" href="assets/css/main.css" />
+    <link rel="stylesheet" href="assets/css/intro.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.css">
+  </head>
+  <body class="homepage is-preload">
+	<div id="page-wrapper">
+        <!-- header -->
+        <nav id="nav">
+            <h1><a href="main_page.html">ScenX</a></h1>
+            <ul>
+                <li class="current"><a href="main_page.html">Home</a></li>
+                <li><a href="upload_page.html">Upload Movies</a></li>
+                <li class="dropdown">
+                    <a href="javascript:void(0)" class="dropbtn">Scene Search</a>
+                    <div class="dropdown-content">
+                        <a href="search_file_page.html">Scene Search</a>
+                        <a href="recommend_tag_page.html">Tag Recommend</a>
+                    </div>
+                </li>
+                <li><a href="translate_page.html">Translation</a></li>
+            </ul>
+        </nav>
+
+        <section id="banner">
+            <video autoplay muted loop id="background-video">
+                <source src="2024hackathon_real_final.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+            </video>
+            <div class="banner-content">
+                <!-- 배너 위에 올려질 콘텐츠 -->
+                <button id="delayed-button" type="button" onclick="location.href='upload_page.html'">
+                  Get Start
+                </button>
+            </div>
+        </section>
+
+        <!-- intro -->
+        <section id="intro" class="container">
+          <div class="carousel-container">
+            <button id="prevBtn" class="carousel-button"><i class="fa fa-arrow-left fa-2x" aria-hidden="true"></i></button>
+            <div class="carousel-wrapper">
+              <div class="carousel">
+                <div class="carousel-item">
+                  <div id="item-1" class="col-4 col-12-medium">
+                    <section class="last">
+                      <a href="upload_page.html">
+                        <img class="banner-image" src="assets/css/images/image_analy.png" alt="">
+                      </a>
+                      <header>
+                        <h2>비디오 <br>분석 </h2>
+                      </header>
+                      <p>
+                        멀티모달 기술을 적용하여 영화의 자막, 음성, 장소, 인물에 대한 정보를 분석하고, 텍스트로 저장합니다.
+
+                      </p>
+                    </section>
+                  </div>
+                  <div id="item-2" class="col-4 col-12-medium">
+                    <section class="last">
+                      <a href="recommend_tag_page.html">
+                        <img class="banner-image" src="assets/css/images/movie_quality_1.png" alt="">
+                      </a>
+                       <header>
+                        <h2>태그로 <br>영화 추천</h2>
+                      </header>
+                      <p>
+                        키워드와 태그를 입력하면 해당하는 맞춤 영화를 추천받고 재생할 수 있습니다. 
+
+                      </p>
+                    </section>
+                  </div>
+                  <div id="item-3" class="col-4 col-12-medium">
+                    <section class="last">
+                      <a href="search_file_page.html">
+                        <img class="banner-image" src="assets/css/images/문장.png" alt="">
+                      </a>
+                        <header>
+                        <h2>문장으로 <br>장면 검색</h2>
+                      </header>
+                      <p>
+                        자유롭게 찾고싶은 장면을 작성하여 원하는 장면을 검색하고 재생할 수 있습니다. 
+                      </p>
+                    </section>
+                  </div>
+                  <div id="item-4" class="col-4 col-12-medium">
+                    <section class="last">
+                      <a href="search_file_page.html">
+                        <img class="banner-image" src="assets/css/images/파일검색.png" alt="">
+                      </a>
+                      <header>
+                        <h2>파일로 <br>장면 검색</h2>
+                      </header>
+                      <p>
+                        영화의 이미지, 텍스트, 오디오 등 일부를 업로드하여 원하는 장면을 검색하고 재생할 수 있습니다.
+                      </p>
+                    </section>
+                  </div>
+                  <div id="item-5" class="col-4 col-12-medium">
+                    <section class="last">
+                      <a href="upload_page.html">
+                        <img class="banner-image" src="assets/css/images/poster.png" alt="">
+                      </a>
+                        <header>
+                        <h2>영화 정보 <br>크롤링</h2>
+                      </header>
+                      <p>
+                        현재 보유하고 있는 영화를 선택하면 해당 영화의 포스터와 정보를 볼 수 있습니다.
+                      </p>
+                    </section>
+                  </div>
+                  <div id="item-6" class="col-4 col-12-medium">
+                    <section class="last">
+                      <a href="recommend_tag_page.html">
+                        <img class="banner-image" src="assets/css/images/요약.png" alt="">
+                      </a>
+                        <header>
+                        <h2>영화 요약</h2>
+                      </header>
+                      <p>
+                        인식한 데이터를 원하는 언어로 요약하여 볼 수 있습니다.
+                      </p>
+                    </section>
+                  </div>
+                  <div id="item-7" class="col-4 col-12-medium">
+                    <section class="last">
+                      <a href="translate_page.html">
+                        <img class="banner-image" src="assets/css/images/trans.png" alt="">
+                      </a>
+                        <header>
+                        <h2>번역 및 <br>다운로드</h2>
+                      </header>
+                      <p>
+                        원하는 언어와 번역하고 싶은 범위를 선택하면 자동으로 번역된 파일이 생성되고 다운로드 할 수 있습니다.
+
+                      </p>
+                    </section>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <button id="nextBtn" class="carousel-button"><i class="fa fa-arrow-right fa-2x" aria-hidden="true"></i></button>
+          </div>
+
+          <!-- 캐러셀 인디케이터 -->
+          <div class="carousel-indicators">
+            <span class="indicator active"></span>
+            <span class="indicator"></span>
+            <span class="indicator"></span>
+            <span class="indicator"></span>
+            <span class="indicator"></span>
+            <span class="indicator"></span>
+            <span class="indicator"></span>
+          </div>
+
+          <!-- 업로드 바로 가기 -->
+          
+        </section>
+      </section>
+
+      <!-- footer -->
+      <section id="footer">
+        <div class="container">
+          <div class="row">
+            <!-- 사용된 라이브러리 및 API 섹션 -->
+            <div class="col-4 col-6-medium col-12-small">
+              <section>
+                <header>
+                  <h2>Used Library & API</h2>
+                </header>
+                <ul class="divided">
+                  <li>Python EasyOCR Library</li>
+                  <li>Python OpenCV Library</li>
+                  <li>Python OpenAI Whisper</li>
+                  <li>Google Cloud Speech-to-Text API</li>
+                  <li>Google Translate API</li>
+                </ul>
+              </section>
+            </div>
+            <!-- 연계된 대학 섹션 -->
+            <div class="col-4 col-6-medium col-12-small">
+              <section>
+                <header>
+                  <h2>Affiliated University</h2>
+                </header>
+                <ul class="divided">
+                  <li>
+                    <a href="https://www.kunsan.ac.kr/cie/index.kunsan"
+                      >Department of Computer and Information Engineering,
+                      Kunsan national University
+                    </a>
+                  </li>
+                </ul>
+              </section>
+            </div>
+            <!-- 제안 섹션 -->
+            <div class="col-4 col-12-medium">
+              <section>
+                <header>
+                  <h2>Suggestions</h2>
+                </header>
+                <ul class="social">
+                  <li>
+                    <a class="icon brands fa-facebook-f" href="#"
+                      ><span class="label">Facebook</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-twitter" href="#"
+                      ><span class="label">Twitter</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-dribbble" href="#"
+                      ><span class="label">Dribbble</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-tumblr" href="#"
+                      ><span class="label">Tumblr</span></a
+                    >
+                  </li>
+                  <li>
+                    <a class="icon brands fa-linkedin-in" href="#"
+                      ><span class="label">LinkedIn</span></a
+                    >
+                  </li>
+                </ul>
+                <ul class="contact">
+                  <li>
+                    <h3>Address</h3>
+                    <p>
+                      Untitled Incorporated<br />
+                      1234 Somewhere Road Suite<br />
+                      Gunsan, TN 00000
+                    </p>
+                  </li>
+                  <li>
+                    <h3>Mail</h3>
+                    <p><a href="#">syys10280@naver.com</a></p>
+                  </li>
+                  <li>
+                    <h3>Phone</h3>
+                    <p>(+82) 10-0000-0000</p>
+                  </li>
+                </ul>
+              </section>
+            </div>
+            <div class="col-12">
+              <!-- Copyright -->
+              <div id="copyright">
+                <ul class="links">
+                  <li>&copy; Modal-Lens. All rights reserved.</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- Scripts -->
+    <script src="assets/js/jquery.min.js"></script>
+    <script src="assets/js/jquery.dropotron.min.js"></script>
+    <script src="assets/js/browser.min.js"></script>
+    <script src="assets/js/breakpoints.min.js"></script>
+    <script src="assets/js/util.js"></script>
+    <script src="assets/js/main.js"></script>
+    <script src="assets/js/intro.js"></script>
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+      // Delay the button appearance by 6 seconds
+      setTimeout(function() {
+        document.getElementById('delayed-button').classList.add('show');
+      }, 7000);
+      });
+    </script>
+  </body>
+</html>

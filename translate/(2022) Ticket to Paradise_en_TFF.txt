@@ -1,0 +1,105 @@
+00:00:00 | +? 131 | Y
+00:00:02 | You put your luggage | Y
+00:00:03 | NULL | Y
+00:00:05 | NULL | Y
+00:00:06 | NULL | Y
+00:00:08 | It's ridiculous | Y
+00:00:09 | I'm sorry for changing the seats. | Y
+00:00:11 | NULL | Y
+00:00:12 | NULL | Y
+00:00:14 | I only lived for 5 years? | Y
+00:00:15 | You have to include recovery periods | Y
+00:00:17 | UNIVERSAL | Y
+00:00:18 | 4 days later | Y
+00:00:20 | It's been a while since my daughter met in Bali | Y
+00:00:21 | He marries a man | Y
+00:00:23 | I want to kiss too much | Y
+00:00:24 | NULL | Y
+00:00:26 | I felt like I found in front of my life | Y
+00:00:27 | NULL | Y
+00:00:29 | NULL | Y
+00:00:30 | -I'm like it. | Y
+00:00:32 | I can dry it, but I don't listen to that human. | Y
+00:00:33 | NULL | Y
+00:00:35 | Champagne! | Y
+00:00:36 | Give me the bottle, please give me a second cup | Y
+00:00:38 | thank you | Y
+00:00:39 | UNIVERSAL PICTURES PRESENTS | Y
+00:00:41 | You have to make you break up without ruining your life | Y
+00:00:42 | NULL | Y
+00:00:44 | NULL | Y
+00:00:45 | It will be painful, but let's take a truce for a while | Y
+00:00:47 | NULL | Y
+00:00:48 | You have to be in advance in advance | Y
+00:00:50 | NULL | Y
+00:00:51 | Did you come to kill me?Before killing each other | Y
+00:00:54 | We are on your side | Y
+00:00:56 | Yes in one heart | Y
+00:00:57 | This fall | Y
+00:00:59 | 1947 I promise to not be poor | Y
+00:01:00 | NULL | Y
+00:01:02 | No help to eat all the pigs 00 | Y
+00:01:03 | Not arguing | Y
+00:01:05 | Go away! | Y
+00:01:06 | Turning | Y
+00:01:08 | What are you doing? | Y
+00:01:09 | Stop the nose | Y
+00:01:11 | Is it a band? | Y
+00:01:12 | Should I solo?But why | Y
+00:01:14 | Mamma Mia! 2 Director | Y
+00:01:15 | Mom and Dad | Y
+00:01:17 | NULL | Y
+00:01:18 | Nice to meet you | Y
+00:01:20 | Then I'm stupid | Y
+00:01:21 | NULL | Y
+00:01:23 | NULL | Y
+00:01:24 | Isn't it really a shark? | Y
+00:01:26 | Don't be scared and come in! | Y
+00:01:27 | You can swim, so like sharks | Y
+00:01:29 | NULL | Y
+00:01:30 | NULL | Y
+00:01:32 | What dolphins ask people? | Y
+00:01:33 | NULL | Y
+00:01:35 | Why do you press it tight!stop! | Y
+00:01:36 | NULL | Y
+00:01:38 | NULL | Y
+00:01:39 | What is the operation? | Y
+00:01:41 | Let's steal the ring | Y
+00:01:42 | NULL | Y
+00:01:44 | NULL | Y
+00:01:45 | To prevent daughter's marriage | Y
+00:01:47 | Are you disappointed!look | Y
+00:01:48 | Is we wrong?Not wrong | Y
+00:01:50 | Are we qualified for our daughter's happiness? | Y
+00:01:51 | NULL | Y
+00:01:53 | We divorced us | Y
+00:01:54 | oh my god | Y
+00:01:56 | How can I do that? | Y
+00:01:57 | What are you talking about? | Y
+00:01:59 | where? | Y
+00:02:00 | NULL | Y
+00:02:02 | NULL | Y
+00:02:03 | NULL | Y
+00:02:05 | 50000% | Y
+00:02:06 | ruler! | Y
+00:02:08 | A1A Original Whale | Y
+00:02:09 | Originally drinking whale | Y
+00:02:11 | 1AI1A Let's not like it | Y
+00:02:12 | Do you have some music for your age? | Y
+00:02:14 | NULL | Y
+00:02:15 | What is it? | Y
+00:02:17 | NULL | Y
+00:02:18 | NULL | Y
+00:02:20 | NULL | Y
+00:02:21 | NULL | Y
+00:02:23 | NULL | Y
+00:02:24 | NULL | Y
+00:02:26 | Please stop | Y
+00:02:27 | NULL | Y
+00:02:29 | NULL | Y
+00:02:30 | I hope the earth will be destroyed. | Y
+00:02:32 | 12 -year -old visitors | Y
+00:02:33 | George Clooney Julia Roberts Ticket | Y
+00:02:35 | Working Title On October 12, it is usually released A universal!Picture Universal | Y
+00:02:36 | NULL | Y
+< end >
