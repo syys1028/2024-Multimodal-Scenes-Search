@@ -1,16 +1,16 @@
-// ÇÊ¿äÇÑ ¸ğµâÀ» ºÒ·¯¿À±â
-const express = require('express'); // À¥ ¼­¹ö¸¦ ½±°Ô ±¸ÃàÇÏ±â À§ÇÑ ÇÁ·¹ÀÓ¿öÅ©
-const multer = require('multer'); // ÆÄÀÏ ¾÷·Îµå¸¦ Ã³¸®ÇÏ±â À§ÇÑ ¹Ìµé¿ş¾î
-const cors = require('cors'); // CORS(Cross-Origin Resource Sharing)¸¦ Çã¿ëÇÏ±â À§ÇÑ ¹Ìµé¿ş¾î
-const path = require('path'); // ÆÄÀÏ ¹× µğ·ºÅä¸® °æ·Î Á¶ÀÛÀ» À§ÇÑ À¯Æ¿¸®Æ¼
-const fs = require('fs').promises; // ÆÄÀÏ ½Ã½ºÅÛÀ» ºñµ¿±âÀûÀ¸·Î Á¶ÀÛÇÏ±â À§ÇÑ fs ¸ğµâÀÇ ÇÁ¶ó¹Ì½º ¹öÀü
-const fs_notP = require('fs'); // fs ¸ğµâÀÇ ÀÏ¹İ ¹öÀü
-const bodyParser = require('body-parser'); // ¿äÃ» º»¹®À» ÆÄ½ÌÇÏ±â À§ÇÑ ¹Ìµé¿ş¾î
+// í•„ìš”í•œ ëª¨ë“ˆì„ ë¶ˆëŸ¬ì˜¤ê¸°
+const express = require('express'); // ì›¹ ì„œë²„ë¥¼ ì‰½ê²Œ êµ¬ì¶•í•˜ê¸° ìœ„í•œ í”„ë ˆì„ì›Œí¬
+const multer = require('multer'); // íŒŒì¼ ì—…ë¡œë“œë¥¼ ì²˜ë¦¬í•˜ê¸° ìœ„í•œ ë¯¸ë“¤ì›¨ì–´
+const cors = require('cors'); // CORS(Cross-Origin Resource Sharing)ë¥¼ í—ˆìš©í•˜ê¸° ìœ„í•œ ë¯¸ë“¤ì›¨ì–´
+const path = require('path'); // íŒŒì¼ ë° ë””ë ‰í† ë¦¬ ê²½ë¡œ ì¡°ì‘ì„ ìœ„í•œ ìœ í‹¸ë¦¬í‹°
+const fs = require('fs').promises; // íŒŒì¼ ì‹œìŠ¤í…œì„ ë¹„ë™ê¸°ì ìœ¼ë¡œ ì¡°ì‘í•˜ê¸° ìœ„í•œ fs ëª¨ë“ˆì˜ í”„ë¼ë¯¸ìŠ¤ ë²„ì „
+const fs_notP = require('fs'); // fs ëª¨ë“ˆì˜ ì¼ë°˜ ë²„ì „
+const bodyParser = require('body-parser'); // ìš”ì²­ ë³¸ë¬¸ì„ íŒŒì‹±í•˜ê¸° ìœ„í•œ ë¯¸ë“¤ì›¨ì–´
 const mysql = require("mysql2");
 
-// Express ¾ÖÇÃ¸®ÄÉÀÌ¼Ç ÃÊ±âÈ­
+// Express ì• í”Œë¦¬ì¼€ì´ì…˜ ì´ˆê¸°í™”
 const app = express();
-const port = 3000; // ¼­¹ö°¡ ½ÇÇàµÉ Æ÷Æ® ¹øÈ£
+const port = 3000; // ì„œë²„ê°€ ì‹¤í–‰ë  í¬íŠ¸ ë²ˆí˜¸
 
 //index.js
 const axios = require("axios");
@@ -20,20 +20,19 @@ const readline = require("readline");
 // Load environment variables from .env file
 dotenv.config();
 
-// ¿äÃ» º»¹®À» JSON Çü½ÄÀ¸·Î ÆÄ½ÌÇÏµµ·Ï ¼³Á¤
+// ìš”ì²­ ë³¸ë¬¸ì„ JSON í˜•ì‹ìœ¼ë¡œ íŒŒì‹±í•˜ë„ë¡ ì„¤ì •
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-// ¸ğµç µµ¸ŞÀÎ¿¡¼­ ¼­¹ö¿¡ Á¢±ÙÇÒ ¼ö ÀÖµµ·Ï CORS ¼³Á¤
+// ëª¨ë“  ë„ë©”ì¸ì—ì„œ ì„œë²„ì— ì ‘ê·¼í•  ìˆ˜ ìˆë„ë¡ CORS ì„¤ì •
 app.use(cors());
 
 //------------------------------------------------------------------------------------------
 
 // OpenAI API key
-const apiKey = "sk-AMCZ91GyJVrPVGxvlqGJ6CESeC0oqiyJdwNjFNxVDbT3BlbkFJp--d16j4xZaDbR2xpkxdcgGK6B7DAIoetgX9WA5vcA";
-
+const apiKey = "my_api_key";
 // Function to call the ChatGPT API
 async function callChatGPT(prompt) {
     const url = "https://api.openai.com/v1/chat/completions";
@@ -65,8 +64,8 @@ async function callChatGPT(prompt) {
                 IMPORTANT: 
                 - If a keyword is written in Hangul (Korean characters), it should be searched in the 'subText' column.
                 - If a keyword is written in Latin script (English characters), it should be searched in the 'voiceText' column.
-                - Names of people (e.g., 'Á¦¸®', 'ÄÉÀÌÆ²¸°') should always be matched to the 'actorName' column.
-                - Ignore keywords like 'Àå¸é' (e.g., '~ÇÏ´Â Àå¸é') when extracting key nouns. These do not need to be matched to any database columns.
+                - Names of people (e.g., 'ì œë¦¬', 'ì¼€ì´í‹€ë¦°') should always be matched to the 'actorName' column.
+                - Ignore keywords like 'ì¥ë©´' (e.g., '~í•˜ëŠ” ì¥ë©´') when extracting key nouns. These do not need to be matched to any database columns.
 
                 Return the result as a JSON object with the 'keywords' mapped to the appropriate database columns.
                 `,
@@ -101,16 +100,16 @@ async function callChatGPT(prompt) {
 // Serve static files from 'C:/Users/UBIT/movie'
 app.use('/movies', express.static('C:/Users/UBIT/movie'));
 
-// MySQL µ¥ÀÌÅÍº£ÀÌ½º ¿¬°á Ç® »ı¼º
+// MySQL ë°ì´í„°ë² ì´ìŠ¤ ì—°ê²° í’€ ìƒì„±
 const pool = mysql.createPool({
-    host: "202.31.147.129", // MySQL ¼­¹öÀÇ È£½ºÆ®
-    user: "jisung", // MySQL »ç¿ëÀÚÀÇ ÀÌ¸§
-    database: "movie_hackerton", // »ç¿ëÇÒ µ¥ÀÌÅÍº£ÀÌ½º ÀÌ¸§
-    password: "Wldnjs981212@@", // MySQL »ç¿ëÀÚÀÇ ºñ¹Ğ¹øÈ£
+    host: "my_ip", // MySQL ì„œë²„ì˜ í˜¸ìŠ¤íŠ¸
+    user: "root", // MySQL ì‚¬ìš©ìì˜ ì´ë¦„
+    database: "movie_hackerton", // ì‚¬ìš©í•  ë°ì´í„°ë² ì´ìŠ¤ ì´ë¦„
+    password: "my_pw", // MySQL ì‚¬ìš©ìì˜ ë¹„ë°€ë²ˆí˜¸
     port: 13306,
-    waitForConnections: true, // ¿¬°áÀÌ ¸ğµÎ »ç¿ë ÁßÀÏ ¶§ ´ë±âÇÒÁö ¿©ºÎ
-    connectionLimit: 10, // ¿¬°á Ç®ÀÇ ÃÖ´ë ¿¬°á ¼ö
-    queueLimit: 0, // ´ë±â¿­ÀÇ ÃÖ´ë ¿¬°á ¿äÃ» ¼ö (0Àº ¹«Á¦ÇÑ)
+    waitForConnections: true, // ì—°ê²°ì´ ëª¨ë‘ ì‚¬ìš© ì¤‘ì¼ ë•Œ ëŒ€ê¸°í• ì§€ ì—¬ë¶€
+    connectionLimit: 10, // ì—°ê²° í’€ì˜ ìµœëŒ€ ì—°ê²° ìˆ˜
+    queueLimit: 0, // ëŒ€ê¸°ì—´ì˜ ìµœëŒ€ ì—°ê²° ìš”ì²­ ìˆ˜ (0ì€ ë¬´ì œí•œ)
     charset  : 'utf8mb4'
 });  
 
@@ -187,7 +186,7 @@ app.post('/get-movie-details', async (req, res) => {
 });
 
 
-// ¿µÈ­ ¿ä¾à
+// ì˜í™” ìš”ì•½
 app.get('/movie-summary', async (req, res) => {
     const { title, language } = req.query;
     let movieTitle = title;
@@ -212,7 +211,7 @@ app.get('/movie-summary', async (req, res) => {
     }
 });
 
-// ¿µÈ­ Á¦¸ñ¿¡ ¿¬µµ ºÙ¿©ÁÖ´Â ÇÔ¼ö
+// ì˜í™” ì œëª©ì— ì—°ë„ ë¶™ì—¬ì£¼ëŠ” í•¨ìˆ˜
 async function getFormattedMovieTitle(movieName) {
     const promisePool = pool.promise();
     const [rows] = await promisePool.query("SELECT movieYear FROM movie_year WHERE movieName = ?", [movieName]);
@@ -227,7 +226,7 @@ async function getFormattedMovieTitle(movieName) {
 }
 
 
-// '/search' °æ·Î¿¡ ´ëÇÑ GET ¿äÃ»À» Ã³¸®
+// '/search' ê²½ë¡œì— ëŒ€í•œ GET ìš”ì²­ì„ ì²˜ë¦¬
 app.get("/search", async (req, res) => {
     let searchWords = Array.isArray(req.query.searchWords) ? req.query.searchWords : [req.query.searchWords].filter(Boolean);
     const searchScope = Array.isArray(req.query.searchScope) ? req.query.searchScope : [req.query.searchScope].filter(Boolean);
@@ -337,7 +336,7 @@ app.get("/search", async (req, res) => {
     }
 });
 
-// Àå¸éÀ¸·Î °Ë»öÇÒ ¶§ Á¦ÀÏ ÃÖ±Ù¿¡ ¾÷·ÎµåµÈ°Å °¡Á®¿À´Â ÄÚµå
+// ì¥ë©´ìœ¼ë¡œ ê²€ìƒ‰í•  ë•Œ ì œì¼ ìµœê·¼ì— ì—…ë¡œë“œëœê±° ê°€ì ¸ì˜¤ëŠ” ì½”ë“œ
 app.get('/get-latest-entry', async (req, res) => {
     try {
         await new Promise(resolve => setTimeout(resolve, 8000));
@@ -358,7 +357,7 @@ app.get('/get-latest-entry', async (req, res) => {
     }
 });
 
-// ÃÖ±Ù¿¡ µé¾î¿Â db ³»¿ë°ú ÀÏÄ¡ÇÏ´Â Àå¸é Ã£¾Æ¼­ º¸¿©ÁÜ
+// ìµœê·¼ì— ë“¤ì–´ì˜¨ db ë‚´ìš©ê³¼ ì¼ì¹˜í•˜ëŠ” ì¥ë©´ ì°¾ì•„ì„œ ë³´ì—¬ì¤Œ
 app.get('/search-matching-scenes', async (req, res) => {
     try {
         const { subText, voiceText, placeText } = req.query;
@@ -416,7 +415,7 @@ app.get('/search-matching-scenes', async (req, res) => {
     }
 });
 
-// ------------------ ¹®ÀåÀ¸·Î °Ë»ö ------------------
+// ------------------ ë¬¸ì¥ìœ¼ë¡œ ê²€ìƒ‰ ------------------
 // Function to search the database based on the criteria provided by ChatGPT
 async function searchDatabase(searchCriteria, pool) {
     const promisePool = pool.promise();
@@ -492,15 +491,15 @@ app.post('/processSceneSearch', async (req, res) => {
 });
 
 
-// '/createFile' °æ·Î¿¡ ´ëÇÑ POST ¿äÃ»À» Ã³¸®ÇÏ¿© ÆÄÀÏ »ı¼º
+// '/createFile' ê²½ë¡œì— ëŒ€í•œ POST ìš”ì²­ì„ ì²˜ë¦¬í•˜ì—¬ íŒŒì¼ ìƒì„±
 app.post('/createFile', (req, res) => {
     const { fileName } = req.body;
     const filePath = path.join('C:/Users/UBIT/translate', fileName);
 
-    // ÆÄÀÏÀÌ Á¸ÀçÇÏ´ÂÁö È®ÀÎ
+    // íŒŒì¼ì´ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸
     fs_notP.access(filePath, fs_notP.constants.F_OK, (err) => {
         if (err) {
-            // ÆÄÀÏÀÌ Á¸ÀçÇÏÁö ¾ÊÀ¸¸é ÆÄÀÏ »ı¼º
+            // íŒŒì¼ì´ ì¡´ì¬í•˜ì§€ ì•Šìœ¼ë©´ íŒŒì¼ ìƒì„±
             fs_notP.writeFile(filePath, 'Sample content', (writeErr) => {
                 if (writeErr) {
                     console.error('Error creating file:', writeErr);
@@ -510,19 +509,19 @@ app.post('/createFile', (req, res) => {
                 console.log('File created successfully:', filePath);
             });
         } else {
-            // ÆÄÀÏÀÌ ÀÌ¹Ì Á¸ÀçÇÏ¸é ¼º°ø ¸Ş½ÃÁö ¹İÈ¯
+            // íŒŒì¼ì´ ì´ë¯¸ ì¡´ì¬í•˜ë©´ ì„±ê³µ ë©”ì‹œì§€ ë°˜í™˜
             res.send('File already exists. Success.');
             console.log('File already exists:', filePath);
         }
     });
 });
 
-// '/downloadFile' °æ·Î¿¡ ´ëÇÑ GET ¿äÃ»À» Ã³¸®ÇÏ¿© ÆÄÀÏ ´Ù¿î·Îµå
+// '/downloadFile' ê²½ë¡œì— ëŒ€í•œ GET ìš”ì²­ì„ ì²˜ë¦¬í•˜ì—¬ íŒŒì¼ ë‹¤ìš´ë¡œë“œ
 app.get('/downloadFile', (req, res) => {
     const { fileName } = req.query;
     const filePath = path.join('C:/Users/UBIT/translate', fileName);
 
-    // ÆÄÀÏÀ» ÀĞ¾î¼­ ¸¶Áö¸· ÁÙÀ» È®ÀÎ
+    // íŒŒì¼ì„ ì½ì–´ì„œ ë§ˆì§€ë§‰ ì¤„ì„ í™•ì¸
     fs_notP.readFile(filePath, 'utf8', (err, data) => {
         if (err) {
             console.error('Error reading file:', err);
@@ -532,7 +531,7 @@ app.get('/downloadFile', (req, res) => {
         const lastLine = lines[lines.length - 1];
         console.log('4', fileName, lastLine)
         
-        // ¸¶Áö¸· ÁÙÀÌ '< end >'ÀÏ °æ¿ì ÆÄÀÏ ´Ù¿î·Îµå Á¦°ø
+        // ë§ˆì§€ë§‰ ì¤„ì´ '< end >'ì¼ ê²½ìš° íŒŒì¼ ë‹¤ìš´ë¡œë“œ ì œê³µ
         if (lastLine === '< end >') {
             res.download(filePath, fileName, (downloadErr) => {
                 if (downloadErr) {
@@ -541,28 +540,28 @@ app.get('/downloadFile', (req, res) => {
                 }
             });
         } else {
-            // ÆÄÀÏÀÌ ÁØºñµÇÁö ¾Ê¾ÒÀ¸¸é 400 »óÅÂ ÄÚµå ¹İÈ¯
+            // íŒŒì¼ì´ ì¤€ë¹„ë˜ì§€ ì•Šì•˜ìœ¼ë©´ 400 ìƒíƒœ ì½”ë“œ ë°˜í™˜
             res.status(400).send('File is not ready for download.');
         }
     });
 });
 
-// ÆÄÀÏÀÌ Á¸ÀçÇÏ´ÂÁö È®ÀÎÇÏ´Â ºñµ¿±â ÇÔ¼ö
+// íŒŒì¼ì´ ì¡´ì¬í•˜ëŠ”ì§€ í™•ì¸í•˜ëŠ” ë¹„ë™ê¸° í•¨ìˆ˜
 async function fileExists(filePath) {
     try {
-        await fs.access(filePath); // ÆÄÀÏ °æ·Î¿¡ Á¢±ÙÇÒ ¼ö ÀÖ´ÂÁö È®ÀÎ
-        return true; // Á¢±Ù °¡´ÉÇÏ¸é true ¹İÈ¯
+        await fs.access(filePath); // íŒŒì¼ ê²½ë¡œì— ì ‘ê·¼í•  ìˆ˜ ìˆëŠ”ì§€ í™•ì¸
+        return true; // ì ‘ê·¼ ê°€ëŠ¥í•˜ë©´ true ë°˜í™˜
     } catch (err) {
-        return false; // Á¢±Ù ºÒ°¡´ÉÇÏ¸é false ¹İÈ¯
+        return false; // ì ‘ê·¼ ë¶ˆê°€ëŠ¥í•˜ë©´ false ë°˜í™˜
     }
 }
 
-// ÆÄÀÏ ÀÌ¸§À» »ı¼ºÇÏ´Â ÇÔ¼ö (Áßº¹ Ã³¸® Æ÷ÇÔ)
+// íŒŒì¼ ì´ë¦„ì„ ìƒì„±í•˜ëŠ” í•¨ìˆ˜ (ì¤‘ë³µ ì²˜ë¦¬ í¬í•¨)
 async function generateFileName(baseName, ext, dir) {
     let filePath = path.join(dir, `${baseName}${ext}`);
     let counter = 1;
 
-    while (await fileExists(filePath)) { // ÆÄÀÏ ÀÌ¸§ÀÌ Áßº¹ÀÌ¸é (1), (2).. Ãß°¡ÇÏ±â 
+    while (await fileExists(filePath)) { // íŒŒì¼ ì´ë¦„ì´ ì¤‘ë³µì´ë©´ (1), (2).. ì¶”ê°€í•˜ê¸° 
         const newBaseName = `${baseName}(${counter})`;
         filePath = path.join(dir, `${newBaseName}${ext}`);
         counter++;
@@ -570,15 +569,15 @@ async function generateFileName(baseName, ext, dir) {
     return path.basename(filePath);
 }
 
-// Multer ¹Ìµé¿ş¾î ¼³Á¤
+// Multer ë¯¸ë“¤ì›¨ì–´ ì„¤ì •
 const upload = multer({ dest: 'C:/Users/UBIT/movie/' });
 
-// '/upload' °æ·Î·Î µé¾î¿À´Â ÆÄÀÏ ¾÷·Îµå ¿äÃ»À» Ã³¸®ÇÏ´Â ¶ó¿ìÆ®
+// '/upload' ê²½ë¡œë¡œ ë“¤ì–´ì˜¤ëŠ” íŒŒì¼ ì—…ë¡œë“œ ìš”ì²­ì„ ì²˜ë¦¬í•˜ëŠ” ë¼ìš°íŠ¸
 app.post('/upload', upload.single('videoFile'), async (req, res) => {
     try {
-        if (req.file) { // ¾÷·ÎµåµÈ ÆÄÀÏÀÌ ÀÖ´ÂÁö È®ÀÎ
-            const originalName = req.file.originalname; // ¾÷·ÎµåµÈ ÆÄÀÏÀÇ ¿ø·¡ ÀÌ¸§
-            const ext = path.extname(originalName); // ÆÄÀÏÀÇ È®ÀåÀÚ ÃßÃâ
+        if (req.file) { // ì—…ë¡œë“œëœ íŒŒì¼ì´ ìˆëŠ”ì§€ í™•ì¸
+            const originalName = req.file.originalname; // ì—…ë¡œë“œëœ íŒŒì¼ì˜ ì›ë˜ ì´ë¦„
+            const ext = path.extname(originalName); // íŒŒì¼ì˜ í™•ì¥ì ì¶”ì¶œ
 
             const year = req.body.year; // Extracted year
             const title = req.body.title; // Extracted title
@@ -591,27 +590,27 @@ app.post('/upload', upload.single('videoFile'), async (req, res) => {
             const baseName = `(${year}) ${title}`;
             let filePath = path.join('C:/Users/UBIT/movie/', `${baseName}${ext}`);
 
-            // ÆÄÀÏ ÀÌ¸§ÀÌ Áßº¹µÇ´ÂÁö È®ÀÎ
+            // íŒŒì¼ ì´ë¦„ì´ ì¤‘ë³µë˜ëŠ”ì§€ í™•ì¸
             if (await fileExists(filePath)) {
-                await fs.unlink(req.file.path); // Áßº¹µÇ¸é ¾÷·Îµå ¾ÈÇÔ
+                await fs.unlink(req.file.path); // ì¤‘ë³µë˜ë©´ ì—…ë¡œë“œ ì•ˆí•¨
                 res.status(409).send('File with the same name already exists');
                 return;
             }
-            await fs.rename(req.file.path, filePath); // ¾÷·ÎµåµÈ ÆÄÀÏÀ» »õ·Î¿î °æ·Î·Î ÀÌµ¿
-            console.log('Upload successful:', filePath); // ÄÜ¼Ö¿¡ ¾÷·Îµå ¼º°ø ¸Ş½ÃÁö Ãâ·Â
-            res.send('Upload successful'); // Å¬¶óÀÌ¾ğÆ®¿¡ ¾÷·Îµå ¼º°ø ¸Ş½ÃÁö ÀÀ´ä
+            await fs.rename(req.file.path, filePath); // ì—…ë¡œë“œëœ íŒŒì¼ì„ ìƒˆë¡œìš´ ê²½ë¡œë¡œ ì´ë™
+            console.log('Upload successful:', filePath); // ì½˜ì†”ì— ì—…ë¡œë“œ ì„±ê³µ ë©”ì‹œì§€ ì¶œë ¥
+            res.send('Upload successful'); // í´ë¼ì´ì–¸íŠ¸ì— ì—…ë¡œë“œ ì„±ê³µ ë©”ì‹œì§€ ì‘ë‹µ
         } else {
-            console.log('No file provided'); // ¾÷·ÎµåµÈ ÆÄÀÏÀÌ ¾øÀ» °æ¿ì
-            res.status(400).send('No file provided'); // Å¬¶óÀÌ¾ğÆ®¿¡ ¿À·ù ¸Ş½ÃÁö ÀÀ´ä
+            console.log('No file provided'); // ì—…ë¡œë“œëœ íŒŒì¼ì´ ì—†ì„ ê²½ìš°
+            res.status(400).send('No file provided'); // í´ë¼ì´ì–¸íŠ¸ì— ì˜¤ë¥˜ ë©”ì‹œì§€ ì‘ë‹µ
         }
     } catch (err) {
-        console.error(err); // ¿À·ù°¡ ¹ß»ıÇÑ °æ¿ì ÄÜ¼Ö¿¡ Ãâ·Â
-        res.status(500).send('Internal server error'); // Å¬¶óÀÌ¾ğÆ®¿¡ ³»ºÎ ¼­¹ö ¿À·ù ¸Ş½ÃÁö ÀÀ´ä
+        console.error(err); // ì˜¤ë¥˜ê°€ ë°œìƒí•œ ê²½ìš° ì½˜ì†”ì— ì¶œë ¥
+        res.status(500).send('Internal server error'); // í´ë¼ì´ì–¸íŠ¸ì— ë‚´ë¶€ ì„œë²„ ì˜¤ë¥˜ ë©”ì‹œì§€ ì‘ë‹µ
     }
 });
 
 
-// ÇÔ¼ö¸¦ »ç¿ëÇÏ¿© ÆÄÀÏ Å¸ÀÔ¿¡ µû¶ó base °æ·Î¸¦ ¹İÈ¯ÇÏ´Â ÇÔ¼ö
+// í•¨ìˆ˜ë¥¼ ì‚¬ìš©í•˜ì—¬ íŒŒì¼ íƒ€ì…ì— ë”°ë¼ base ê²½ë¡œë¥¼ ë°˜í™˜í•˜ëŠ” í•¨ìˆ˜
 function getBasePath(fileType) {
     switch (fileType) {
         case 'image':
@@ -625,72 +624,72 @@ function getBasePath(fileType) {
     }
 }
 
-// Ãß°¡ ÆÄÀÏ ¾÷·Îµå¸¦ À§ÇÑ Multer ¹Ìµé¿ş¾î ¼³Á¤
+// ì¶”ê°€ íŒŒì¼ ì—…ë¡œë“œë¥¼ ìœ„í•œ Multer ë¯¸ë“¤ì›¨ì–´ ì„¤ì •
 const additionalUpload = multer({
     storage: multer.diskStorage({
         destination: async (req, file, cb) => {
-            const { fileType } = req.body; // ¿äÃ» º»¹®¿¡¼­ ÆÄÀÏ Å¸ÀÔ ÃßÃâ
+            const { fileType } = req.body; // ìš”ì²­ ë³¸ë¬¸ì—ì„œ íŒŒì¼ íƒ€ì… ì¶”ì¶œ
 
-            if (!fileType) { // ÆÄÀÏ Å¸ÀÔÀÌ ¾øÀ» °æ¿ì
-                console.error('fileType is required'); // ÄÜ¼Ö¿¡ ¿À·ù ¸Ş½ÃÁö Ãâ·Â
-                return cb(new Error('fileType is required'), null); // ¿À·ù Äİ¹é È£Ãâ
+            if (!fileType) { // íŒŒì¼ íƒ€ì…ì´ ì—†ì„ ê²½ìš°
+                console.error('fileType is required'); // ì½˜ì†”ì— ì˜¤ë¥˜ ë©”ì‹œì§€ ì¶œë ¥
+                return cb(new Error('fileType is required'), null); // ì˜¤ë¥˜ ì½œë°± í˜¸ì¶œ
             }
             try {
                 const basePath = getBasePath(fileType);
-                const dest = path.join(basePath, 'add_upload'); // ÃÖÁ¾ °æ·Î ¼³Á¤
-                await fs.mkdir(dest, { recursive: true }); // µğ·ºÅä¸®°¡ ¾øÀ» °æ¿ì »ı¼º
-                cb(null, dest); // Äİ¹éÀ¸·Î ÃÖÁ¾ °æ·Î Àü´Ş
+                const dest = path.join(basePath, 'add_upload'); // ìµœì¢… ê²½ë¡œ ì„¤ì •
+                await fs.mkdir(dest, { recursive: true }); // ë””ë ‰í† ë¦¬ê°€ ì—†ì„ ê²½ìš° ìƒì„±
+                cb(null, dest); // ì½œë°±ìœ¼ë¡œ ìµœì¢… ê²½ë¡œ ì „ë‹¬
             } catch (err) {
-                console.error(err); // ¿À·ù°¡ ¹ß»ıÇÑ °æ¿ì ÄÜ¼Ö¿¡ Ãâ·Â
-                return cb(err, null); // ¿À·ù Äİ¹é È£Ãâ
+                console.error(err); // ì˜¤ë¥˜ê°€ ë°œìƒí•œ ê²½ìš° ì½˜ì†”ì— ì¶œë ¥
+                return cb(err, null); // ì˜¤ë¥˜ ì½œë°± í˜¸ì¶œ
             }
         },
         filename: async (req, file, cb) => {
-            const ext = path.extname(file.originalname); // ÆÄÀÏÀÇ È®ÀåÀÚ ÃßÃâ
-            const baseName = `(${req.body.yea}) ${req.body.title}`; // ¿¬µµ¿Í Á¦¸ñÀ» Æ÷ÇÔÇÑ ±âº» ÆÄÀÏ ÀÌ¸§
+            const ext = path.extname(file.originalname); // íŒŒì¼ì˜ í™•ì¥ì ì¶”ì¶œ
+            const baseName = `(${req.body.yea}) ${req.body.title}`; // ì—°ë„ì™€ ì œëª©ì„ í¬í•¨í•œ ê¸°ë³¸ íŒŒì¼ ì´ë¦„
 
             try {
                 const basePath = getBasePath(req.body.fileType);
-                const dir = path.join(basePath, 'add_upload'); // ÃÖÁ¾ °æ·Î ¼³Á¤
+                const dir = path.join(basePath, 'add_upload'); // ìµœì¢… ê²½ë¡œ ì„¤ì •
                 const filename = await generateFileName(baseName, ext, dir);
-                cb(null, filename); // Äİ¹éÀ¸·Î ÃÖÁ¾ ÆÄÀÏ ÀÌ¸§ Àü´Ş
+                cb(null, filename); // ì½œë°±ìœ¼ë¡œ ìµœì¢… íŒŒì¼ ì´ë¦„ ì „ë‹¬
             } catch (err) {
-                console.error(err); // ¿À·ù°¡ ¹ß»ıÇÑ °æ¿ì ÄÜ¼Ö¿¡ Ãâ·Â
-                return cb(err, null); // ¿À·ù Äİ¹é È£Ãâ
+                console.error(err); // ì˜¤ë¥˜ê°€ ë°œìƒí•œ ê²½ìš° ì½˜ì†”ì— ì¶œë ¥
+                return cb(err, null); // ì˜¤ë¥˜ ì½œë°± í˜¸ì¶œ
             }
         }
     })
 });
 
-// '/uploadAdditional' °æ·Î·Î µé¾î¿À´Â Ãß°¡ ÆÄÀÏ ¾÷·Îµå ¿äÃ»À» Ã³¸®ÇÏ´Â ¶ó¿ìÆ®
+// '/uploadAdditional' ê²½ë¡œë¡œ ë“¤ì–´ì˜¤ëŠ” ì¶”ê°€ íŒŒì¼ ì—…ë¡œë“œ ìš”ì²­ì„ ì²˜ë¦¬í•˜ëŠ” ë¼ìš°íŠ¸
 app.post('/uploadAdditional', additionalUpload.single('additionalFile'), async (req, res) => {
     try {
-        if (req.file) { // ¾÷·ÎµåµÈ ÆÄÀÏÀÌ ÀÖ´ÂÁö È®ÀÎ
-            const originalName = req.file.originalname; // ¾÷·ÎµåµÈ ÆÄÀÏÀÇ ¿ø·¡ ÀÌ¸§
-            const ext = path.extname(originalName); // ÆÄÀÏÀÇ È®ÀåÀÚ ÃßÃâ
+        if (req.file) { // ì—…ë¡œë“œëœ íŒŒì¼ì´ ìˆëŠ”ì§€ í™•ì¸
+            const originalName = req.file.originalname; // ì—…ë¡œë“œëœ íŒŒì¼ì˜ ì›ë˜ ì´ë¦„
+            const ext = path.extname(originalName); // íŒŒì¼ì˜ í™•ì¥ì ì¶”ì¶œ
             const basePath = getBasePath(req.body.fileType);
-            const baseName = `(${req.body.year}) ${req.body.title}`; // ¿¬µµ¿Í Á¦¸ñÀ» Æ÷ÇÔÇÑ ±âº» ÆÄÀÏ ÀÌ¸§
+            const baseName = `(${req.body.year}) ${req.body.title}`; // ì—°ë„ì™€ ì œëª©ì„ í¬í•¨í•œ ê¸°ë³¸ íŒŒì¼ ì´ë¦„
 
-            // ÀÔ·ÂÇÑ ¿¬µµ¿Í Á¦¸ñÀ¸·Î ÀúÀåµÉ ÆÄÀÏ °æ·Î »ı¼º
+            // ì…ë ¥í•œ ì—°ë„ì™€ ì œëª©ìœ¼ë¡œ ì €ì¥ë  íŒŒì¼ ê²½ë¡œ ìƒì„±
             let filePath = path.join(basePath, 'add_upload', `${baseName}${ext}`);
 
-            // ÆÄÀÏ ÀÌ¸§ÀÌ Áßº¹µÇ´ÂÁö È®ÀÎ
+            // íŒŒì¼ ì´ë¦„ì´ ì¤‘ë³µë˜ëŠ”ì§€ í™•ì¸
             if (await fileExists(filePath)) {
                 const newFileName = await generateFileName(baseName, ext, path.join(basePath, 'add_upload'));
                 filePath = path.join(basePath, 'add_upload', newFileName);
             }
 
-            await fs.rename(req.file.path, filePath); // ¾÷·ÎµåµÈ ÆÄÀÏÀ» »õ·Î¿î °æ·Î·Î ÀÌµ¿
+            await fs.rename(req.file.path, filePath); // ì—…ë¡œë“œëœ íŒŒì¼ì„ ìƒˆë¡œìš´ ê²½ë¡œë¡œ ì´ë™
 
-            console.log('Additional file upload successful:', filePath); // ÄÜ¼Ö¿¡ ¾÷·Îµå ¼º°ø ¸Ş½ÃÁö Ãâ·Â
-            res.send('Additional file upload successful'); // Å¬¶óÀÌ¾ğÆ®¿¡ ¾÷·Îµå ¼º°ø ¸Ş½ÃÁö ÀÀ´ä
+            console.log('Additional file upload successful:', filePath); // ì½˜ì†”ì— ì—…ë¡œë“œ ì„±ê³µ ë©”ì‹œì§€ ì¶œë ¥
+            res.send('Additional file upload successful'); // í´ë¼ì´ì–¸íŠ¸ì— ì—…ë¡œë“œ ì„±ê³µ ë©”ì‹œì§€ ì‘ë‹µ
         } else {
-            console.log('No additional file provided'); // ¾÷·ÎµåµÈ ÆÄÀÏÀÌ ¾øÀ» °æ¿ì
-            res.status(400).send('No additional file provided'); // Å¬¶óÀÌ¾ğÆ®¿¡ ¿À·ù ¸Ş½ÃÁö ÀÀ´ä
+            console.log('No additional file provided'); // ì—…ë¡œë“œëœ íŒŒì¼ì´ ì—†ì„ ê²½ìš°
+            res.status(400).send('No additional file provided'); // í´ë¼ì´ì–¸íŠ¸ì— ì˜¤ë¥˜ ë©”ì‹œì§€ ì‘ë‹µ
         }
     } catch (err) {
-        console.error(err); // ¿À·ù°¡ ¹ß»ıÇÑ °æ¿ì ÄÜ¼Ö¿¡ Ãâ·Â
-        res.status(500).send('Internal server error'); // Å¬¶óÀÌ¾ğÆ®¿¡ ³»ºÎ ¼­¹ö ¿À·ù ¸Ş½ÃÁö ÀÀ´ä
+        console.error(err); // ì˜¤ë¥˜ê°€ ë°œìƒí•œ ê²½ìš° ì½˜ì†”ì— ì¶œë ¥
+        res.status(500).send('Internal server error'); // í´ë¼ì´ì–¸íŠ¸ì— ë‚´ë¶€ ì„œë²„ ì˜¤ë¥˜ ë©”ì‹œì§€ ì‘ë‹µ
     }
 });
 
