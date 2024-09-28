@@ -24,7 +24,6 @@
     ┃ ┣ 🔎 main_page.html               # 메인 페이지 html
 
 ## 📌 데이터베이스 구조
-![db](https://github.com/user-attachments/assets/a29ee678-4eb3-4c2b-b9bd-a0e9faf280c9)
  - label: 라벨  
  - movieName: 영화 제목  
  - timeStamp: 타임스탬프  
@@ -34,6 +33,7 @@
  - isMainActor: 주연 배우 여부  
  - actorName: 주연 배우 이름  
  - actorGender: 주연 배우 성별  
+![db](https://github.com/user-attachments/assets/a29ee678-4eb3-4c2b-b9bd-a0e9faf280c9)
 
 ## 📌 주요 기능
 ### - 영화 업로드 및 장면 분석:  
