@@ -6,15 +6,15 @@
 
 ## 📌 폴더 구조
     📂 2024-Multimodal-Scenes-Search/  
-    ┣ 📂 Capstone/                  
-    ┃ ┣ 📜 add_upload_all.py            # 추가 업로드 데이터 처리 모듈  
-    ┃ ┣ 📜 db_connect.py                # MySQL 데이터베이스 연결 모듈  
-    ┃ ┣ 🔎 final_movie_search_py.py     # 최종 영화 검색 기능 모듈  
-    ┃ ┣ 📜 image_to_text.py             # OCR로 이미지에서 텍스트 추출  
-    ┃ ┣ 📜 mov_to_Img.py                # 영화 비디오에서 프레임을 추출해 이미지로 변환  
-    ┃ ┣ 📜 mp3_to_text.py               # Whisper로 음성 파일을 텍스트로 변환  
-    ┃ ┣ 📜 place_to_text.py             # Place365 모델을 사용한 장소 인식  
-    ┃ ┣ 📜 trans_to_text.py             # 텍스트 데이터 번역 및 MySQL 저장  
+    ┣ 📂 Capstone/                      # Python 모듈  
+    ┃ ┣ 📜 add_upload_all.py                # 추가 업로드 데이터 처리 모듈  
+    ┃ ┣ 📜 db_connect.py                    # MySQL 데이터베이스 연결 모듈  
+    ┃ ┣ 🔎 final_movie_search_py.py         # 최종 영화 검색 기능 모듈  
+    ┃ ┣ 📜 image_to_text.py                 # OCR로 이미지에서 텍스트 추출  
+    ┃ ┣ 📜 mov_to_Img.py                    # 영화 비디오에서 프레임을 추출해 이미지로 변환  
+    ┃ ┣ 📜 mp3_to_text.py                   # Whisper로 음성 파일을 텍스트로 변환  
+    ┃ ┣ 📜 place_to_text.py                 # Place365 모델을 사용한 장소 인식  
+    ┃ ┣ 📜 trans_to_text.py                 # 텍스트 데이터 번역 및 MySQL 저장  
     ┣ 📂 web/                       
     ┃ ┣ 📂 assets/                     
     ┃ ┃ ┣ 📂 js/                        # JavaScript 파일   
