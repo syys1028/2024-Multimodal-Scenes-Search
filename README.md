@@ -24,7 +24,16 @@
     ┃ ┣ 🔎 main_page.html               # 메인 페이지 html
 
 ## 📌 데이터베이스 구조
-https://github.com/user-attachments/assets/a8809c5c-5a54-48a0-867f-fdc14bf8c273
+![db](https://github.com/user-attachments/assets/c349216d-cbf1-459c-9e9a-1be73048e15e)
+ - label: 라벨  
+ - movieName: 영화 제목  
+ - timeStamp: 타임스탬프  
+ - subText: 자막  
+ - voiceText: 음성  
+ - placeText: 장소  
+ - isMainActor: 주연 배우 여부  
+ - actorName: 주연 배우 이름  
+ - actorGender: 주연 배우 성별  
 
 ## 📌 주요 기능
 ### - 영화 업로드 및 장면 분석:  
