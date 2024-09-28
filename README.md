@@ -9,7 +9,7 @@
     ┣ 📂 Capstone/                  # Python 모듈 및 데이터 처리 파일  
     ┃ ┣ 📜 add_upload_all.py            # 추가 업로드 데이터를 처리하고 MySQL에 저장  
     ┃ ┣ 📜 db_connect.py                # MySQL 데이터베이스 연결 모듈  
-    ┃ ┣ ⭐ final_movie_search_py.py     # 최종 영화 검색 기능 모듈  
+    ┃ ┣ 🔎 final_movie_search_py.py     # 최종 영화 검색 기능 모듈  
     ┃ ┣ 📜 image_to_text.py             # OCR로 이미지에서 텍스트 추출  
     ┃ ┣ 📜 mov_to_Img.py                # 영화 비디오에서 프레임을 추출해 이미지로 변환  
     ┃ ┣ 📜 mp3_to_text.py               # Whisper로 음성 파일을 텍스트로 변환  
@@ -21,7 +21,7 @@
     ┃ ┃ ┃ ┣ 📜 intro.js                        # 소개 페이지 기능 JavaScript 파일   
     ┃ ┃ ┃ ┣ 📜 main.js                         # 웹페이지 메인 JavaScript 파일  
     ┃ ┃ ┃ ┣ 📜 upload.js                       # 파일 업로드 기능 JavaScript 파일  
-    ┃ ┣ ⭐ main_page.html                   # 메인 페이지  
+    ┃ ┣ 🔎 main_page.html                   # 메인 페이지  
 
 ## 📌 주요 기능
 ### - 영화 업로드 및 장면 분석:  
