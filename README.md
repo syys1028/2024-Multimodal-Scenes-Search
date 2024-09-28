@@ -17,9 +17,6 @@
     ┃ ┣ 📜 trans_to_text.py             # 텍스트 데이터 번역 및 MySQL 저장  
     ┣ 📂 web/                       # 웹 관련 파일 (HTML, CSS, JavaScript)  
     ┃ ┣ 📂 assets/                      # 스타일시트, 스크립트 및 웹 리소스  
-    ┃ ┃ ┣ 📂 css/                           # CSS 파일  
-    ┃ ┃ ┃ ┣ 📜 intro.css                       # 소개 페이지 CSS 파일  
-    ┃ ┃ ┃ ┣ 📜 main.css                        # 메인 스타일 시트   
     ┃ ┃ ┣ 📂 js/                            # JavaScript 파일   
     ┃ ┃ ┃ ┣ 📜 intro.js                        # 소개 페이지 기능 JavaScript 파일   
     ┃ ┃ ┃ ┣ 📜 main.js                         # 웹페이지 메인 JavaScript 파일  
@@ -31,7 +28,6 @@
     ┃ ┣ 📜 translate_page.html              # 텍스트 번역 페이지  
     ┃ ┣ 📜 upload_page.html                 # 비디오 및 파일 업로드 페이지  
 
- 
 ## 📌 주요 기능
 ### - 영화 업로드 및 장면 분석:  
 사용자는 영화를 웹 페이지를 통해 업로드할 수 있습니다. 업로드된 영화는 Python 모듈을 통해 자막, 음성, 장소, 인물 정보를 추출하여 텍스트로 변환한 후 MySQL 데이터베이스에 저장됩니다.
