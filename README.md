@@ -1,2 +1,94 @@
 # 2024-Multimodal-Scenes-Search
 💡 [ Protfolio Project 006] 멀티모달 장면 검색 시스템
+
+## 📌 프로젝트 소개
+이 프로젝트는 동영상의 특정 장면을 키워드로 쉽게 검색하고, 자막, 음성, 장소, 인물 정보를 인식하여 텍스트로 변환하고 데이터베이스에 저장하는 시스템입니다. 사용자는 웹을 통해 영화를 업로드하고, 키워드를 입력하여 장면을 검색하거나, 장면 정보를 다양한 언어로 번역해 다운로드할 수 있습니다. 이 시스템은 영화 속 장면을 쉽게 찾을 수 있어 사용자 경험을 극대화하며, OTT, 방송사 등 다양한 분야에서 활용될 수 있습니다.
+
+## 📌 폴더 구조
+📂 2024-Multimodal-Scenes-Search/  
+┣ 📂 Capstone/  # Python 모듈 및 데이터 처리 파일  
+┃ ┣ 📜 add_processed_files.txt  # 처리된 파일 목록을 기록하는 텍스트 파일  
+┃ ┣ 📜 add_upload_all.py  # 모든 업로드 데이터를 처리하고 MySQL에 저장  
+┃ ┣ 📜 categories_places365.txt  # Place365 장소 분류 데이터 파일  
+┃ ┣ 📜 db_connect.py  # 데이터베이스(MySQL) 연결 및 작업 모듈  
+┃ ┣ 📜 final_movie_search_py.py  # 최종 영화 검색 기능을 담당하는 모듈  
+┃ ┣ 📜 image_to_text.py  # OCR을 통해 이미지에서 텍스트를 추출하는 모듈  
+┃ ┣ 📜 mov_to_Img.py  # 영화 비디오에서 프레임을 추출하여 이미지로 변환  
+┃ ┣ 📜 mp3_to_text.py  # Whisper 모델을 사용해 음성 파일을 텍스트로 변환  
+┃ ┣ 📜 place_to_text.py  # Place365 모델을 사용해 장소를 인식하고 텍스트로 변환  
+┃ ┣ 📜 resnet50_places365.pth.tar  # Place365에서 제공하는 학습된 ResNet50 모델  
+┃ ┣ 📜 trans_processed_files.txt  # 번역 처리가 완료된 파일 목록을 기록하는 파일  
+┃ ┣ 📜 trans_to_text.py  # 텍스트 데이터를 번역하고 MySQL에 저장  
+
+📂 web/  # 웹 관련 프론트엔드 및 백엔드 파일  
+┣ 📂 assets/  # 스타일시트, 스크립트 및 웹 리소스 폴더  
+┃ ┣ 📂 css/  # CSS 파일  
+┃ ┃ ┣ 📂 images/  # 웹에서 사용되는 이미지 파일  
+┃ ┃ ┣ 📜 intro.css  # 소개 페이지를 위한 CSS 파일  
+┃ ┃ ┣ 📜 main.css  # 메인 스타일 시트 파일  
+┃ ┃ ┣ 📜 styles.css  # 추가 스타일 시트  
+┃ ┣ 📂 js/  # JavaScript 파일  
+┃ ┃ ┣ 📜 breakpoints.min.js  # 반응형 웹을 위한 브레이크포인트 처리 스크립트  
+┃ ┃ ┣ 📜 browser.min.js  # 브라우저 호환성 체크 및 스크립트  
+┃ ┃ ┣ 📜 intro.js  # 소개 페이지의 JavaScript 기능 파일  
+┃ ┃ ┣ 📜 jquery.dropotron.min.js  # 네비게이션 드롭다운 메뉴 관련 스크립트  
+┃ ┃ ┣ 📜 jquery.min.js  # jQuery 라이브러리  
+┃ ┃ ┣ 📜 main.js  # 웹페이지 메인 JavaScript 파일  
+┃ ┃ ┣ 📜 upload.js  # 파일 업로드 관련 기능 스크립트  
+┃ ┃ ┣ 📜 util.js  # 유틸리티 스크립트  
+┣ 📂 images/  # 프로젝트와 관련된 이미지 파일들  
+┣ 📜 2024hackathon_real_final.mp4  # 해커톤에서 제출된 최종 프로젝트 시연 영상  
+┣ 📜 info_page.html  # 영화 정보 페이지  
+┣ 📜 main_page.html  # 메인 페이지  
+┣ 📜 recommend_tag_page.html  # 추천 태그를 이용한 장면 검색 페이지  
+┣ 📜 search_file_page.html  # 파일을 업로드해 장면을 검색하는 페이지  
+┣ 📜 translate_page.html  # 자막 및 텍스트 번역 페이지  
+┣ 📜 upload_page.html  # 비디오 및 파일 업로드 페이지  
+ 
+## 📌 주요 기능
+### - 영화 업로드 및 장면 분석:  
+사용자는 영화를 웹 페이지를 통해 업로드할 수 있습니다. 업로드된 영화는 Python 모듈을 통해 자막, 음성, 장소, 인물 정보를 추출하여 텍스트로 변환한 후 MySQL 데이터베이스에 저장됩니다.
+
+### - 장면 검색 및 타임스탬프 제공:  
+사용자가 웹 페이지에서 키워드를 입력하면 해당 키워드와 일치하는 장면 정보를 데이터베이스에서 검색해 결과를 제공합니다. 타임스탬프를 제공하여 원하는 장면으로 바로 이동할 수 있습니다.
+
+### - 자막, 음성, 장소 인식:
+PaddleOCR를 사용해 이미지에서 자막을 추출합니다.  
+Whisper 모델을 사용해 음성을 텍스트로 변환합니다.  
+Place365 ResNet50 모델을 사용해 장소를 인식하고 텍스트로 변환합니다.  
+
+### - 다국어 번역 기능:
+추출된 텍스트 데이터를 Google Cloud API를 이용해 다양한 언어로 번역하고, 번역된 텍스트 파일을 다운로드할 수 있습니다.  
+
+### - 프레임 추출 및 삭제 기능:
+업로드된 영화에서 프레임을 36프레임당 1장씩 추출해 처리하며, 처리 완료 후 서버에서 프레임 이미지를 삭제하여 저장 공간을 효율적으로 관리합니다.  
+
+## 📌 구현 상세
+### - 프레임 추출 및 데이터 분석
+영화 비디오에서 프레임을 1.5초당 1장씩 추출해 이미지로 변환하고, 이미지 및 음성 데이터를 분석해 텍스트로 변환합니다.  
+
+### - 텍스트 데이터 저장
+분석된 텍스트 데이터를 MySQL 데이터베이스에 저장하여 키워드 검색에 활용됩니다.  
+
+### - 장면 검색 및 번역
+사용자가 입력한 키워드를 바탕으로 장면을 검색하고, 해당 타임스탬프의 영상을 재생할 수 있습니다.  
+텍스트 데이터를 여러 언어로 번역하여 사용자가 다운로드할 수 있습니다.  
+
+
+## 📌 개발 환경
+### - 언어 및 프레임워크
+- Python: 모듈 개발 및 데이터 처리
+- Node.js & Express: 서버 및 API
+- HTML, CSS, JavaScript: 웹 프론트엔드 개발
+
+### - 데이터 처리 및 DB
+- MySQL: 데이터베이스 사용
+- PaddleOCR: 자막 인식
+- Whisper: 음성 인식
+- Place365 ResNet50: 장소 인식
+- Google Cloud API: 번역 및 Speech-to-Text
+
+### - 개발 도구
+- Jupyter Notebook: Python 모듈 개발
+- VSCode: 웹 및 서버 개발
+- PHP: 파일 처리 및 서버 간 연결
