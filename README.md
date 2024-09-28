@@ -6,6 +6,7 @@
 
 ## 📌 폴더 구조
     📂 2024-Multimodal-Scenes-Search/  
+    
     ┣ 📂 Capstone/                  # Python 모듈 및 데이터 처리 파일  
     ┃ ┣ 📜 add_upload_all.py            # 모든 업로드 데이터를 처리하고 MySQL에 저장  
     ┃ ┣ 📜 db_connect.py                # MySQL 데이터베이스 연결 모듈  
@@ -15,17 +16,16 @@
     ┃ ┣ 📜 mp3_to_text.py               # Whisper로 음성 파일을 텍스트로 변환  
     ┃ ┣ 📜 place_to_text.py             # Place365 모델을 사용한 장소 인식  
     ┃ ┣ 📜 trans_to_text.py             # 텍스트 데이터 번역 및 MySQL 저장  
+    
     ┣ 📂 web/                       # 웹 관련 파일 (HTML, CSS, JavaScript)  
     ┃ ┣ 📂 assets/                      # 스타일시트, 스크립트 및 웹 리소스  
     ┃ ┃ ┣ 📂 css/                           # CSS 파일  
-    ┃ ┃ ┃ ┣ 📂 images/                      # 웹에서 사용되는 이미지 파일  
     ┃ ┃ ┃ ┣ 📜 intro.css                       # 소개 페이지 CSS 파일  
     ┃ ┃ ┃ ┣ 📜 main.css                        # 메인 스타일 시트   
     ┃ ┃ ┣ 📂 js/                            # JavaScript 파일   
     ┃ ┃ ┃ ┣ 📜 intro.js                        # 소개 페이지 기능 JavaScript 파일   
     ┃ ┃ ┃ ┣ 📜 main.js                         # 웹페이지 메인 JavaScript 파일  
     ┃ ┃ ┃ ┣ 📜 upload.js                       # 파일 업로드 기능 JavaScript 파일  
-    ┃ ┣ 📂 images/                          # 프로젝트 관련 이미지 파일  
     ┃ ┣ 📜 info_page.html                   # 영화 정보 페이지  
     ┃ ┣ 📜 main_page.html                   # 메인 페이지  
     ┃ ┣ 📜 recommend_tag_page.html          # 태그 기반 장면 검색 페이지  
