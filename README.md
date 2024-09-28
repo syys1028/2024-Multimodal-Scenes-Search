@@ -6,7 +6,7 @@
 
 ## 📌 폴더 구조
 📂 2024-Multimodal-Scenes-Search/  
-┣ 📂 Capstone/  # Python 모듈 및 데이터 처리 파일  
+┣ 📂 Capstone/                  # Python 모듈 및 데이터 처리 파일  
 ┃ ┣ 📜 add_processed_files.txt  # 처리된 파일 목록을 기록하는 텍스트 파일  
 ┃ ┣ 📜 add_upload_all.py  # 모든 업로드 데이터를 처리하고 MySQL에 저장  
 ┃ ┣ 📜 categories_places365.txt  # Place365 장소 분류 데이터 파일  
@@ -53,9 +53,9 @@
 사용자가 웹 페이지에서 키워드를 입력하면 해당 키워드와 일치하는 장면 정보를 데이터베이스에서 검색해 결과를 제공합니다. 타임스탬프를 제공하여 원하는 장면으로 바로 이동할 수 있습니다.
 
 ### - 자막, 음성, 장소 인식:
-PaddleOCR를 사용해 이미지에서 자막을 추출합니다.  
-Whisper 모델을 사용해 음성을 텍스트로 변환합니다.  
-Place365 ResNet50 모델을 사용해 장소를 인식하고 텍스트로 변환합니다.  
+- 자막 : PaddleOCR를 사용해 이미지에서 자막을 추출합니다.  
+- 음성 : Whisper 모델을 사용해 음성을 텍스트로 변환합니다.  
+- 장소 : Place365 ResNet50 모델을 사용해 장소를 인식하고 텍스트로 변환합니다.  
 
 ### - 다국어 번역 기능:
 추출된 텍스트 데이터를 Google Cloud API를 이용해 다양한 언어로 번역하고, 번역된 텍스트 파일을 다운로드할 수 있습니다.  
@@ -77,18 +77,18 @@ Place365 ResNet50 모델을 사용해 장소를 인식하고 텍스트로 변환
 
 ## 📌 개발 환경
 ### - 언어 및 프레임워크
-- Python: 모듈 개발 및 데이터 처리
-- Node.js & Express: 서버 및 API
-- HTML, CSS, JavaScript: 웹 프론트엔드 개발
+- Python : 모듈 개발 및 데이터 처리
+- Node.js & Express : 서버 및 API
+- HTML, CSS, JavaScript : 웹 프론트엔드 개발
 
 ### - 데이터 처리 및 DB
-- MySQL: 데이터베이스 사용
-- PaddleOCR: 자막 인식
-- Whisper: 음성 인식
-- Place365 ResNet50: 장소 인식
-- Google Cloud API: 번역 및 Speech-to-Text
+- MySQL : 데이터베이스 사용
+- PaddleOCR : 자막 인식
+- Whisper : 음성 인식
+- Place365 ResNet50 : 장소 인식
+- Google Cloud API : 번역 및 Speech-to-Text
 
 ### - 개발 도구
-- Jupyter Notebook: Python 모듈 개발
-- VSCode: 웹 및 서버 개발
-- PHP: 파일 처리 및 서버 간 연결
+- Jupyter Notebook : Python 모듈 개발
+- VSCode : 웹 및 서버 개발
+- PHP : 파일 처리 및 서버 간 연결
