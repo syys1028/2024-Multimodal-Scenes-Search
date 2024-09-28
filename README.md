@@ -5,41 +5,41 @@
 이 프로젝트는 동영상의 특정 장면을 키워드로 쉽게 검색하고, 자막, 음성, 장소, 인물 정보를 인식하여 텍스트로 변환하고 데이터베이스에 저장하는 시스템입니다. 사용자는 웹을 통해 영화를 업로드하고, 키워드를 입력하여 장면을 검색하거나, 장면 정보를 다양한 언어로 번역해 다운로드할 수 있습니다. 이 시스템은 영화 속 장면을 쉽게 찾을 수 있어 사용자 경험을 극대화하며, OTT, 방송사 등 다양한 분야에서 활용될 수 있습니다.
 
 ## 📌 폴더 구조
-  📂 2024-Multimodal-Scenes-Search/  
-  ┣ 📂 Capstone/              # Python 모듈 및 데이터 처리 파일  
-  ┃ ┣ 📜 add_upload_all.py        # 모든 업로드 데이터를 처리하고 MySQL에 저장  
-  ┃ ┣ 📜 db_connect.py            # MySQL 데이터베이스 연결 모듈  
-  ┃ ┣ 📜 final_movie_search_py.py # 영화 검색 기능 모듈  
-  ┃ ┣ 📜 image_to_text.py         # OCR로 이미지에서 텍스트 추출  
-  ┃ ┣ 📜 mov_to_Img.py            # 영화 비디오에서 프레임을 추출해 이미지로 변환  
-  ┃ ┣ 📜 mp3_to_text.py           # Whisper로 음성 파일을 텍스트로 변환  
-  ┃ ┣ 📜 place_to_text.py         # Place365 모델을 사용한 장소 인식  
-  ┃ ┣ 📜 trans_to_text.py         # 텍스트 데이터 번역 및 MySQL 저장  
-  
-  ┣ 📂 web/                  # 웹 관련 파일 (HTML, CSS, JavaScript)  
-  ┃ ┣ 📂 assets/             # 스타일시트, 스크립트 및 웹 리소스  
-  ┃ ┃ ┣ 📂 css/              # CSS 파일  
-  ┃ ┃ ┃ ┣ 📂 images/         # 웹에서 사용되는 이미지 파일  
-  ┃ ┃ ┃ ┣ 📜 intro.css       # 소개 페이지 CSS 파일  
-  ┃ ┃ ┃ ┣ 📜 main.css        # 메인 스타일 시트  
-  ┃ ┃ ┃ ┣ 📜 styles.css      # 추가 스타일 시트  
-  ┃ ┃ ┣ 📂 js/               # JavaScript 파일  
-  ┃ ┃ ┃ ┣ 📜 breakpoints.min.js  # 반응형 웹을 위한 스크립트  
-  ┃ ┃ ┃ ┣ 📜 browser.min.js      # 브라우저 호환성 스크립트  
-  ┃ ┃ ┃ ┣ 📜 intro.js            # 소개 페이지 기능 JavaScript 파일  
-  ┃ ┃ ┃ ┣ 📜 jquery.dropotron.min.js # 네비게이션 드롭다운 스크립트  
-  ┃ ┃ ┃ ┣ 📜 jquery.min.js       # jQuery 라이브러리  
-  ┃ ┃ ┃ ┣ 📜 main.js             # 웹페이지 메인 JavaScript 파일  
-  ┃ ┃ ┃ ┣ 📜 upload.js           # 파일 업로드 기능 JavaScript 파일  
-  ┃ ┃ ┃ ┣ 📜 util.js             # 유틸리티 스크립트  
-  ┣ 📂 images/              # 프로젝트 관련 이미지 파일  
-  ┣ 📜 2024hackathon_real_final.mp4 # 해커톤 최종 시연 영상  
-  ┣ 📜 info_page.html       # 영화 정보 페이지  
-  ┣ 📜 main_page.html       # 메인 페이지  
-  ┣ 📜 recommend_tag_page.html # 태그 기반 장면 검색 페이지  
-  ┣ 📜 search_file_page.html  # 파일을 업로드해 장면을 검색하는 페이지  
-  ┣ 📜 translate_page.html    # 텍스트 번역 페이지  
-  ┣ 📜 upload_page.html       # 비디오 및 파일 업로드 페이지  
+    📂 2024-Multimodal-Scenes-Search/  
+    ┣ 📂 Capstone/              # Python 모듈 및 데이터 처리 파일  
+    ┃ ┣ 📜 add_upload_all.py        # 모든 업로드 데이터를 처리하고 MySQL에 저장  
+    ┃ ┣ 📜 db_connect.py            # MySQL 데이터베이스 연결 모듈  
+    ┃ ┣ 📜 final_movie_search_py.py # 영화 검색 기능 모듈  
+    ┃ ┣ 📜 image_to_text.py         # OCR로 이미지에서 텍스트 추출  
+    ┃ ┣ 📜 mov_to_Img.py            # 영화 비디오에서 프레임을 추출해 이미지로 변환  
+    ┃ ┣ 📜 mp3_to_text.py           # Whisper로 음성 파일을 텍스트로 변환  
+    ┃ ┣ 📜 place_to_text.py         # Place365 모델을 사용한 장소 인식  
+    ┃ ┣ 📜 trans_to_text.py         # 텍스트 데이터 번역 및 MySQL 저장  
+    
+    ┣ 📂 web/                  # 웹 관련 파일 (HTML, CSS, JavaScript)  
+    ┃ ┣ 📂 assets/             # 스타일시트, 스크립트 및 웹 리소스  
+    ┃ ┃ ┣ 📂 css/              # CSS 파일  
+    ┃ ┃ ┃ ┣ 📂 images/         # 웹에서 사용되는 이미지 파일  
+    ┃ ┃ ┃ ┣ 📜 intro.css       # 소개 페이지 CSS 파일  
+    ┃ ┃ ┃ ┣ 📜 main.css        # 메인 스타일 시트  
+    ┃ ┃ ┃ ┣ 📜 styles.css      # 추가 스타일 시트  
+    ┃ ┃ ┣ 📂 js/               # JavaScript 파일  
+    ┃ ┃ ┃ ┣ 📜 breakpoints.min.js  # 반응형 웹을 위한 스크립트  
+    ┃ ┃ ┃ ┣ 📜 browser.min.js      # 브라우저 호환성 스크립트  
+    ┃ ┃ ┃ ┣ 📜 intro.js            # 소개 페이지 기능 JavaScript 파일  
+    ┃ ┃ ┃ ┣ 📜 jquery.dropotron.min.js # 네비게이션 드롭다운 스크립트  
+    ┃ ┃ ┃ ┣ 📜 jquery.min.js       # jQuery 라이브러리  
+    ┃ ┃ ┃ ┣ 📜 main.js             # 웹페이지 메인 JavaScript 파일  
+    ┃ ┃ ┃ ┣ 📜 upload.js           # 파일 업로드 기능 JavaScript 파일  
+    ┃ ┃ ┃ ┣ 📜 util.js             # 유틸리티 스크립트  
+    ┣ 📂 images/              # 프로젝트 관련 이미지 파일  
+    ┣ 📜 2024hackathon_real_final.mp4 # 해커톤 최종 시연 영상  
+    ┣ 📜 info_page.html       # 영화 정보 페이지  
+    ┣ 📜 main_page.html       # 메인 페이지  
+    ┣ 📜 recommend_tag_page.html # 태그 기반 장면 검색 페이지  
+    ┣ 📜 search_file_page.html  # 파일을 업로드해 장면을 검색하는 페이지  
+    ┣ 📜 translate_page.html    # 텍스트 번역 페이지  
+    ┣ 📜 upload_page.html       # 비디오 및 파일 업로드 페이지  
 
  
 ## 📌 주요 기능
