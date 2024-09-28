@@ -6,19 +6,14 @@
 
 ## 📌 폴더 구조
 📂 2024-Multimodal-Scenes-Search/
-
 ┣ 📂 Capstone/              # Python 모듈 및 데이터 처리 파일  
-┃ ┣ 📜 add_processed_files.txt  # 처리된 파일 목록  
 ┃ ┣ 📜 add_upload_all.py        # 모든 업로드 데이터를 처리하고 MySQL에 저장  
-┃ ┣ 📜 categories_places365.txt # Place365 장소 분류 데이터 파일  
 ┃ ┣ 📜 db_connect.py            # MySQL 데이터베이스 연결 모듈  
 ┃ ┣ 📜 final_movie_search_py.py # 영화 검색 기능 모듈  
 ┃ ┣ 📜 image_to_text.py         # OCR로 이미지에서 텍스트 추출  
 ┃ ┣ 📜 mov_to_Img.py            # 영화 비디오에서 프레임을 추출해 이미지로 변환  
 ┃ ┣ 📜 mp3_to_text.py           # Whisper로 음성 파일을 텍스트로 변환  
 ┃ ┣ 📜 place_to_text.py         # Place365 모델을 사용한 장소 인식  
-┃ ┣ 📜 resnet50_places365.pth.tar # 학습된 ResNet50 모델 파일  
-┃ ┣ 📜 trans_processed_files.txt # 번역 완료된 파일 목록  
 ┃ ┣ 📜 trans_to_text.py         # 텍스트 데이터 번역 및 MySQL 저장  
 
 ┣ 📂 web/                  # 웹 관련 파일 (HTML, CSS, JavaScript)  
