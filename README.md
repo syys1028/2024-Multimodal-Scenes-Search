@@ -32,7 +32,8 @@
  - placeText: 장소  
  - isMainActor: 주연 배우 여부  
  - actorName: 주연 배우 이름  
- - actorGender: 주연 배우 성별  
+ - actorGender: 주연 배우 성별
+   
 ![db](https://github.com/user-attachments/assets/a29ee678-4eb3-4c2b-b9bd-a0e9faf280c9)
 
 ## 📌 주요 기능
