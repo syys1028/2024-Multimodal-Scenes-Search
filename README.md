@@ -1,6 +1,6 @@
 # 2024-Multimodal-Scenes-Search
 💡 [ Protfolio Project 006] 멀티모달 장면 검색 시스템
-
+  
 ## 📌 프로젝트 소개
 ![image](https://github.com/user-attachments/assets/35e499a4-45f2-49f2-bdd3-64d508d34234)  
   - 팀 프로젝트 : 제 11회 대한민국 sw 융합 해커톤 대회  
