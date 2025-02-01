@@ -39,11 +39,11 @@
  - isMainActor: 주연 배우 여부  
  - actorName: 주연 배우 이름  
  - actorGender: 주연 배우 성별
-   
+
 ![db](https://github.com/user-attachments/assets/a29ee678-4eb3-4c2b-b9bd-a0e9faf280c9)
 
 ## 📌 주요 기능
-![image](https://github.com/user-attachments/assets/a94daa70-973b-49c5-8fab-969216735140)  
+![image](https://github.com/user-attachments/assets/24b2f4f7-e3bf-4f27-a9aa-57bfe5b66c15)
 
 ### - 영화 업로드 및 장면 분석:  
 사용자는 영화를 웹 페이지를 통해 업로드할 수 있습니다. 업로드된 영화는 Python 모듈을 통해 자막, 음성, 장소, 인물 정보를 추출하여 텍스트로 변환한 후 MySQL 데이터베이스에 저장됩니다.
