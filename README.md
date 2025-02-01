@@ -7,7 +7,7 @@
 ![image](https://github.com/user-attachments/assets/35e499a4-45f2-49f2-bdd3-64d508d34234)  
   - 팀 프로젝트 : 제 11회 대한민국 sw융합 해커톤 대회  
   - 개발 기간 : 2024. 08. 23 ~ 2024. 08. 25  
-  - 역할 : 팀장 / 백엔드 및 모듈 개발 담당    
+  - 역할 : 팀장 / 웹 백엔드 및 인식 모듈 개발 담당    
 
 
 ## 📌 폴더 구조
@@ -91,4 +91,5 @@
 - Jupyter Notebook : Python 모듈 개발
 - VSCode : 웹 및 서버 개발
 - PHP : 파일 처리 및 서버 간 연결
+- OpenAI API : 검색 키워드 추출 및 줄거리 요약
  
