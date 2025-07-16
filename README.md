@@ -24,10 +24,16 @@
     ┣ 📂 web/                       
     ┃ ┣ 📂 assets/                     
     ┃ ┃ ┣ 📂 js/                        # JavaScript 파일   
-    ┃ ┃ ┃ ┣ 📜 intro.js                    # 소개 페이지 기능  
-    ┃ ┃ ┃ ┣ 📜 main.js                     # 웹페이지 메인  
-    ┃ ┃ ┃ ┣ 📜 upload.js                   # 파일 업로드 기능  
-    ┃ ┣ 🔎 main_page.html               # 메인 페이지 html
+    ┃ ┃ ┃ ┣ 📜 intro.js                     # 소개 페이지 기능  
+    ┃ ┃ ┃ ┣ 📜 main.js                      # 웹페이지 메인  
+    ┃ ┃ ┃ ┣ 📜 upload.js                    # 파일 업로드 기능  
+    ┃ ┣ 🔎 main_page.html               # 메인 페이지 html  
+    ┃ ┣ 🔎 upload_page.html                 # 업로드 페이지  
+    ┃ ┣ 🔎 recommend_tag_page.html          # 태그로 영화 추천 페이지  
+    ┃ ┣ 🔎 search_file_page.html            # 파일로 영화 검색 페이지  
+    ┃ ┣ 🔎 translate_page.html              # 번역 및 다운로드 페이지  
+    ┃ ┣ 🔎 info_page.html                   # 영화 정보 팝업을 위한 html    
+
 
 ## 📌 데이터베이스 구조
  - label: 라벨  
